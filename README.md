@@ -4,7 +4,7 @@
 
 > **Emergency?** Start at **[Something is broken → START HERE](START-HERE.md)**. Read the STOP warnings before touching storage or deleting data.
 >
-> **Evidence baseline:** October 14, 2026. This repo contains dated captures and procedures, **not live monitoring**. Check live status before acting.
+> **Evidence baseline:** October 15, 2026. This repo contains dated captures and procedures, **not live monitoring**. Check live status before acting.
 
 ## Find what you need
 
@@ -33,7 +33,7 @@
 
 ## Know before changing storage
 
-- `praesidium`: recorded **4 × 12 TB RAIDZ2**, previously degraded during a power-cable issue; health **not rechecked live**.
+- `praesidium`: recorded **4 × 12 TB RAIDZ2**, **DEGRADED** with one unavailable member on October 15; SATA power cable replacement ordered, recovery not yet verified.
 - `speedpool`: recorded **single NVMe**, **no redundancy**; check independent backups before risky work.
 - Boot: Samsung SSD; **Kioxia second boot SSD is disconnected and not yet mirrored**. See [hardware inventory](Infrastructure/Hardware/Hardware-Inventory.md).
 
