@@ -48,6 +48,12 @@ Use [TrueNAS snapshot recovery](TrueNAS-Troubleshooting-Runbook.md#7-recover-an-
 
 Use [boot recovery](TrueNAS-Troubleshooting-Runbook.md#8-truenas-wont-boot--boot-ssd-failed). A config export with **secret seed** helps restore TrueNAS settings; it does **not** back up the data pools. The planned Kioxia boot mirror is **not configured**.
 
+## HomePi — October 15 verified backups
+
+The HomePi systemd backup job runs around 03:30 local time and writes to `/mnt/praesidium/backups/homepi/homepi-backup/` on Servius. Two approximately 121 MiB archives passed remote SHA-256 verification, and the first passed gzip integrity testing. Selected SQLite databases were checked; live Pi-hole FTL query history is **excluded** because its snapshot repeatedly copied far more data than its size. Retention is integrated, but actual aged-file deletion and restoration have **not** been tested.
+
+**See [HomePi backup and restoration runbook](HomePi-Backup-and-Restore.md) for exact paths, safe checks, exclusions and follow-ups.** Servius Uptime Kuma WebUI Push monitoring remains pending.
+
 ## Routine checklist
 
 - [ ] Verify TrueNAS alerts and most recent successful data protection jobs.
