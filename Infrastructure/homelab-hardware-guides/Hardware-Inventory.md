@@ -40,3 +40,20 @@ These paths describe the documented layout, not a live validation of mounts or d
 - [ ] Confirm motherboard BIOS and BMC firmware versions
 - [ ] Confirm homepi model, OS and active services
 - [ ] Record any hardware replacements and test dates
+
+### Pending Upgrade: Kioxia Boot Mirror
+
+- Current TrueNAS boot drive: Samsung 870 EVO 500 GB SSD.
+- Second boot drive: Kioxia SSD (model/capacity to verify).
+- Status: Kioxia is physically disconnected due to the outstanding power-cable issue.
+- Plan: Connect Kioxia and configure it as a mirror of the existing TrueNAS boot pool.
+- Current boot pool has no confirmed redundancy.
+
+Before installation:
+1. Resolve the power-cable problem.
+2. Back up the TrueNAS configuration, including the secret seed.
+3. Identify the Kioxia SSD by serial number.
+4. Use the TrueNAS boot-pool attach procedure; do not create a new pool.
+5. Wait for resilvering and verify boot-pool health.
+
+WARNING: Attaching the Kioxia SSD will overwrite its existing contents.
