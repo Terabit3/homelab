@@ -12,6 +12,12 @@ Entries distinguish **verified from terminal output**, **reported configuration*
 - Failed job history contains TrueNAS app upgrades with validation errors (`run_as.user`, `network.web_port`), prior FileStash app creation failures, and recurring cron failure in a `zfs snapshot -r speedpool/ix-apps@auto-...` script; investigate live scheduled task ownership before editing.
 - **No destructive repair, service restart, pool mutation or installation performed in this audit.** Continue only safe low-impact fixes from iOS; major repairs postponed until physically home.
 
+## 2026-10-15 — Kuma synchronization recovered
+
+- Corrected the existing Uptime Kuma Docker host reference and saved its socket configuration. Restarted only the container sync helper; confirmed 51 containers discovered, 71 existing monitors, successful sync and Docker health `healthy`.
+- Sync warns no notification name is configured, so newly generated container monitors may lack alert delivery. Notification setup remains pending.
+- Previously disabled the unused IPA expiring-password timer and cleared failed service state; no failed systemd units remained.
+
 ## 2026-10-15 — Small service cleanup
 
 - Confirmed an unused password-expiration notification timer was failing because its identity client was not configured. Disabled the timer, reset the failed state, and verified no failed systemd units remained.
