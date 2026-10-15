@@ -12,6 +12,12 @@ Entries distinguish **verified from terminal output**, **reported configuration*
 - Failed job history contains TrueNAS app upgrades with validation errors (`run_as.user`, `network.web_port`), prior FileStash app creation failures, and recurring cron failure in a `zfs snapshot -r speedpool/ix-apps@auto-...` script; investigate live scheduled task ownership before editing.
 - **No destructive repair, service restart, pool mutation or installation performed in this audit.** Continue only safe low-impact fixes from iOS; major repairs postponed until physically home.
 
+## 2026-10-15 — Disabled failing legacy snapshot cron
+
+- Disabled TrueNAS cron job ID 1 via middleware API; follow-up query confirmed `enabled=false`. Job repeatedly failed with exit code 2 and targeted a legacy application dataset; data and snapshots were not changed.
+- Legacy application data still occupies approximately 200 GB, mainly descendant Docker storage. Preserve pending an on-site audit of active usage and replacement snapshot coverage.
+- Existing native snapshots for other datasets remain configured; no equivalent task for the legacy application dataset was found.
+
 ## 2026-10-15 — Docker monitor final verification
 
 - After authenticated API bulk repair, read-only SQLite query confirmed **53 Docker monitors assigned to Docker Host ID 2**, with none unassigned. Original count was 51; two additional monitor records may have been created during synchronization and require duplicate review.
