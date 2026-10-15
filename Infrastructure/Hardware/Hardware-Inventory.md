@@ -41,7 +41,7 @@ These paths describe the documented layout, not a live validation of mounts or d
 - [ ] Confirm homepi model, OS and active services
 - [ ] Record any hardware replacements and test dates
 
-### Pending Upgrade: Kioxia Boot Mirror
+### Pending upgrade: Kioxia boot mirror
 
 - Current TrueNAS boot drive: Samsung 870 EVO 500 GB SSD.
 - Second boot drive: Kioxia SSD (model/capacity to verify).
@@ -57,3 +57,5 @@ Before installation:
 5. Wait for resilvering and verify boot-pool health.
 
 WARNING: Attaching the Kioxia SSD will overwrite its existing contents.
+
+See [disk and pool procedures](../../Operations/TrueNAS-Disk-Replacement-and-Expansion.md) for the safety checklist and version-specific boot-pool instructions.
