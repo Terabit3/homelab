@@ -12,6 +12,14 @@ Entries distinguish **verified from terminal output**, **reported configuration*
 - Failed job history contains TrueNAS app upgrades with validation errors (`run_as.user`, `network.web_port`), prior FileStash app creation failures, and recurring cron failure in a `zfs snapshot -r speedpool/ix-apps@auto-...` script; investigate live scheduled task ownership before editing.
 - **No destructive repair, service restart, pool mutation or installation performed in this audit.** Continue only safe low-impact fixes from iOS; major repairs postponed until physically home.
 
+## 2026-10-15 — Additional read-only housekeeping audit
+
+- Confirmed one storage pool remains degraded; physical repair deferred until on site.
+- Verified other storage pools are online, with no immediate capacity concern.
+- Identified a monitoring synchronization configuration mismatch; no changes made.
+- Recorded one failed notification service and several stopped containers for later classification.
+- No services restarted, data deleted, or storage operations performed.
+
 ## 2026-10-15 — HomePi backup reliability, planning and documentation
 
 ### Verified
