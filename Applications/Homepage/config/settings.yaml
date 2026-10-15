@@ -1,0 +1,69 @@
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/settings
+
+title: Thlabs Admin Homepage
+
+theme: dark
+color: gray
+
+background:
+  image: https://science.nasa.gov/wp-content/uploads/2024/07/pia19048-europa-stunning-surface.jpg?w=4096&format=jpeg
+  blur: md # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
+  saturate: 70 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+  brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+  opacity: 70 # 0-100
+
+useEqualHeights: true
+
+layout:
+  Server Management:
+    header: true
+    style: row
+    columns: 4
+  Network Services:
+    header: true
+    style: row
+    columns: 4
+  Game Services:
+    header: true
+    style: row
+    columns: 4
+  Cloud & Storage:
+    header: true
+    style: row
+    columns: 4
+  Media Services:
+    header: true
+    style: row
+    columns: 4
+  Media Backend Services:
+    header: true
+    style: row
+    columns: 4
+  Monitoring & Analytics:
+    header: true
+    style: row
+    columns: 4
+  Home Automation:
+    header: true
+    style: row
+    columns: 4
+  Database:
+    header: true
+    style: row
+    columns: 4
+  Security:
+    header: true
+    style: row
+    columns: 4
+
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+  hideVisitURL: true
+  provider: duckduckgo # google, duckduckgo, bing, baidu, brave or custom
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey

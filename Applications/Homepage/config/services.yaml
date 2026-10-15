@@ -1,0 +1,345 @@
+---
+- Server Management:
+    - Servius TrueNAS:
+        icon: truenas.png
+        href: "{{HOMEPAGE_VAR_TRUENAS_URL}}"
+        ping: "{{HOMEPAGE_VAR_TRUENAS_URL_2}}"
+        statusStyle: 'basic'
+        description: "ZFS-powered storage with advanced data protection"
+        widget:
+          type: truenas
+          url: "{{HOMEPAGE_VAR_TRUENAS_URL_2}}"
+          key: "{{HOMEPAGE_VAR_TRUENAS_API_KEY}}"
+          enablePools: true
+          nasType: scale
+
+    - Windows 11:
+        icon: microsoft-windows.png
+        href: "{{HOMEPAGE_VAR_WINDOWS_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_WINDOWS_URL_2}}"
+        description: Windows 11 on Docker
+
+    - Dockhand:
+        icon: dockhand.png
+        href: "{{HOMEPAGE_VAR_DOCKHAND_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_DOCKHAND_URL_2}}"
+        description: "Docker management interface"
+
+    - Arr Control Center:
+        icon: sh-arr-dashboard
+        href: "{{HOMEPAGE_VAR_ARR_DASHBOARD_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_ARR_DASHBOARD_URL_2}}"
+        description: "Manage, monitor, and automate your media collection services."
+
+    - Servius IPMI:
+        icon: mikrotik.png
+        href: "{{HOMEPAGE_VAR_SERVIUS_IPMI_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_SERVIUS_IPMI_URL_2}}"
+        description: Supermicro IPMI management interface for Servius
+
+- Home Automation:
+    - Frigate:
+        icon: sh-frigate-light
+        href: "{{HOMEPAGE_VAR_FRIGATE_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_FRIGATE_URL_2}}"
+        description: NVR with real-time object detection and video streaming
+
+    # - Home Assistant:
+    #     icon: home-assistant.png
+    #     href: "{{HOMEPAGE_VAR_HOMEASSISTANT_URL}}"
+    #     siteMonitor: "{{HOMEPAGE_VAR_HOMEASSISTANT_URL_2}}"
+    #     description: Centralized control and integration of smart devices
+    #     widget:
+    #         type: homeassistant
+    #         url: "{{HOMEPAGE_VAR_HOMEASSISTANT_URL_2}}"
+    #         key: "{{HOMEPAGE_VAR_HOMEASSISTANT_API_KEY}}"
+    #         custom:
+    #             - state: sensor.total_power
+    #             - state: sensor.total_energy_today
+    #               label: energy today
+    #             - template: "{{ states.switch|selectattr('state','equalto','on')|list|length }}"
+    #               label: switches on
+    #             - state: weather.forecast_home
+    #               label: wind speed
+    #               value: "{attributes.wind_speed} {attributes.wind_speed_unit}"
+
+- Network Services:
+    - ASUS RT-AX82U Router:
+        icon: asus.png
+        href: "{{HOMEPAGE_VAR_ASUSROUTER_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_ASUSROUTER_URL}}"
+        description: ASUS Router management interface
+
+    - Pi-hole (Primary):
+        icon: pi-hole.svg
+        href: "{{HOMEPAGE_VAR_PIHOLE_HOMEPI_URL}}"
+        siteMonitor : "{{HOMEPAGE_VAR_PIHOLE_HOMEPI_URL_2}}"
+        statusStyle: 'basic'
+        description: Primary DNS server on Raspberry Pi 3+
+        widget:
+            type: pihole
+            url: "{{HOMEPAGE_VAR_PIHOLE_HOMEPI_URL_2}}"
+            version: 6
+            key: "{{HOMEPAGE_VAR_PIHOLE_HOMEPI_API_KEY}}"
+
+    - Pi-hole (Secondary):
+        icon: pi-hole.svg
+        href: "{{HOMEPAGE_VAR_PIHOLE_SERVIUS_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_PIHOLE_SERVIUS_URL_2}}"
+        description: Secondary DNS server on Servius
+        widget:
+            type: pihole
+            url: "{{HOMEPAGE_VAR_PIHOLE_SERVIUS_URL_2}}"
+            version: 6
+            key: "@Pure72598TH"
+
+    - Nginx Proxy Manager:
+        icon: nginx.png
+        href: "{{HOMEPAGE_VAR_NGINX_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_NGINX_URL_2}}"
+        description: Web-based tool for reverse proxy, SSL, and domain management
+        widget:
+            type: npm
+            url: "{{HOMEPAGE_VAR_NGINX_URL_2}}"
+            username: "{{HOMEPAGE_VAR_NGINX_USERNAME}}"
+            password: "{{HOMEPAGE_VAR_NGINX_PASSWORD}}"
+
+    - Tailscale:
+        icon: sh-tailscale-light
+        href: "https://login.tailscale.com/admin/machines"
+        ping : "{{HOMEPAGE_VAR_TAILSCALE_URL}}"
+        statusStyle: 'basic'
+        description: Tailscale secure private network admin panel
+
+- Game Services:
+    - AMP (Servius):
+        icon: amp.png
+        href: "{{HOMEPAGE_VAR_AMP_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_AMP_URL_2}}"
+        description: Web based multi-game server management tool
+
+
+- Media Services:
+    - Jellyfin:
+        icon: jellyfin.png
+        href: "{{HOMEPAGE_VAR_JELLYFIN_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_JELLYFIN_URL_2}}"
+        description: Open-source media server for streaming and managing content
+        #widget:
+        #  type: jellyfin
+        #  url: "{{HOMEPAGE_VAR_JELLYFIN_URL_2}}"
+        #  key: "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}"
+        #  enableBlocks: true # optional, defaults to false
+        #  enableNowPlaying: true # optional, defaults to true
+        #  enableUser: true # optional, defaults to false
+        #  showEpisodeNumber: true # optional, defaults to false
+        #  expandOneStreamToTwoRows: false # optional, defaults to true
+
+    - Jellyseerr:
+        icon: jellyseerr.png
+        href: "{{HOMEPAGE_VAR_JELLYSEERR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_JELLYSEERR_URL_2}}"
+        description: Discover and request media for Jellyfin
+        widget:
+            type: jellyseerr
+            url: "{{HOMEPAGE_VAR_JELLYSEERR_URL_2}}"
+            key: "{{HOMEPAGE_VAR_JELLYEERR_API_KEY}}"
+
+    - Calibre:
+        icon: calibre.png
+        href: "{{HOMEPAGE_VAR_CALIBRE_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_CALIBRE_URL_2}}"
+        description: All-in-one eBook management and conversion platform
+
+    - Calibre-web:
+        icon: calibre-web.png
+        href: "{{HOMEPAGE_VAR_CALIBRE_WEB_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_CALIBRE_WEB_URL_2}}"
+        description: All-in-one eBook management and conversion platform
+
+
+- Media Backend Services:
+    - Radarr:
+        icon: radarr.png
+        href: "{{HOMEPAGE_VAR_RADARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_RADARR_URL_2}}"
+        description: Movie management and automation tool
+        widget:
+            type: radarr
+            url: "{{HOMEPAGE_VAR_RADARR_URL_2}}"
+            key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
+            enableQueue: true # optional, defaults to false
+
+    - Sonarr:
+        icon: sonarr.png
+        href: "{{HOMEPAGE_VAR_SONARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_SONARR_URL_2}}"
+        description: TV series/Anime management and automation tool
+        #widget:
+             #type: sonarr
+             #url: "{{HOMEPAGE_VAR_SONARR_URL_2}}"
+             #key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
+             #enableQueue: true # optional, defaults to false
+
+    - Bazarr:
+        icon: bazarr.png
+        href: "{{HOMEPAGE_VAR_BAZARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_BAZARR_URL_2}}"
+        description: Subtitle management and automation tool
+        widget:
+            type: bazarr
+            url: "{{HOMEPAGE_VAR_BAZARR_URL_2}}"
+            key: "{{HOMEPAGE_VAR_BAZARR_API_KEY}}"
+
+    - Lidarr:
+        icon: lidarr.png
+        href: "{{HOMEPAGE_VAR_LIDARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_LIDARR_URL_2}}"
+        description: Music management and automation tool
+        #widget:
+        #    type: lidarr
+        #    url: "{{HOMEPAGE_VAR_LIDARR_URL_2}}"
+        #    key: "{{HOMEPAGE_VAR_LIDARR_API_KEY}}"
+
+    - Whisparr:
+        icon: whisparr.png
+        href: "{{HOMEPAGE_VAR_WHISPARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_WHISPARR_URL_2}}"
+        description: Media management and automation tool
+
+    - Jellystat:
+        icon: jellystat.png
+        href: "{{HOMEPAGE_VAR_JELLYSTAT_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_JELLYSTAT_URL_2}}"
+        description: Jellyfin analytics and statistics dashboard for detailed insights
+        widget:
+            type: jellystat
+            url: "{{HOMEPAGE_VAR_JELLYSTAT_URL_2}}"
+            key: "{{HOMEPAGE_VAR_JELLYSTAT_API_KEY}}"
+            days: 30 # optional, defaults to 30
+
+    - Prowlarr:
+        icon: prowlarr.png
+        href: "{{HOMEPAGE_VAR_PROWLARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_PROWLARR_URL_2}}"
+        description: Centralized indexer management tool for indexing multiple sources
+        widget:
+            type: prowlarr
+            url: "{{HOMEPAGE_VAR_PROWLARR_URL_2}}"
+            key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
+
+    - qBittorrent:
+        icon: qbittorrent.png
+        href: "{{HOMEPAGE_VAR_QBITTORRENT_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_QBITTORRENT_URL_2}}"
+        description: Open-source torrent client for fast and efficient downloads
+        #widget:
+            #type: qbittorrent
+            #url: "{{HOMEPAGE_VAR_QBITTORRENT_URL_2}}"
+            #username: "{{HOMEPAGE_VAR_QBITTORRENT_USER}}"
+            #password: "{{HOMEPAGE_VAR_QBITTORRENT_PASS}}"
+            #enableLeechProgress: true # optional, defaults to false
+
+    - Houndarr:
+        icon: houndarr.png
+        href: "{{HOMEPAGE_VAR_HOUNDARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_HOUNDARR_URL_2}}"
+        description: Automatic video quality upgrading
+
+    - Cleanuparr:
+        icon: cleanuparr.png
+        href: "{{HOMEPAGE_VAR_CLEANARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_CLEANARR_URL_2}}"
+        description: Advanced Servarr download management
+
+    - Boxarr:
+        icon: boxarr.png
+        href: "{{HOMEPAGE_VAR_BOXARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_BOXARR_URL_2}}"
+        description: Advanced Servarr download management
+
+    - Wizarr:
+        icon: wizarr.png
+        href: "{{HOMEPAGE_VAR_WIZARR_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_WIZARR_URL_2}}"
+        description: User onboarding and analytics
+
+    # - Autobrr:
+    #     icon: autobrr.png
+    #     href: "{{HOMEPAGE_VAR_AUTOBRR_URL}}"
+    #     siteMonitor: "{{HOMEPAGE_VAR_AUTOBRR_URL_2}}"
+    #     description: Automated torrent grabber and filter for private trackers
+
+- Cloud & Storage:
+    - FileBrowser Quantum:
+        icon: sh-filebrowser-quantum
+        href: "{{HOMEPAGE_VAR_FILEBROWSERQUANTUM_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_FILEBROWSERQUANTUM_URL_2}}"
+        description: Manage files securely through a modern web interface
+
+    - Nextcloud:
+        icon: nextcloud.png
+        href: "{{HOMEPAGE_VAR_NEXTCLOUD_URL}}"
+        siteMonitor : "{{HOMEPAGE_VAR_NEXTCLOUD_URL_2}}"
+        description: Open-source cloud storage and collaboration platform
+
+    - Immich:
+        icon: immich.png
+        href: "{{HOMEPAGE_VAR_IMMICH_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_IMMICH_URL_2}}"
+        description: Private cloud storage for photo and video backups
+
+    - Syncthing (Servius):
+        icon: syncthing.png
+        href: "{{HOMEPAGE_VAR_SYNCTHING_SERVIUS_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_SYNCTHING_SERVIUS_URL_2}}"
+        description: File synchronization tool on Servius
+
+    - Syncthing (H711NT):
+        icon: syncthing.png
+        href: "{{HOMEPAGE_VAR_SYNCTHING_H711NT_URL}}"
+        siteMonitor: "{{HOMEPAGE_VAR_SYNCTHING_H711NT_URL_2}}"
+        description: File synchronization tool on Servius
+
+- Monitoring & Analytics:
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: "{{HOMEPAGE_VAR_UPTIMEKUMA_URL}}"
+        siteMonitor : "{{HOMEPAGE_VAR_UPTIMEKUMA_URL_2}}"
+        description: Real-time uptime monitoring withe alerts
+        widget:
+            type: uptimekuma
+            url: "http://192.168.50.121:31050"
+            slug: servius
+
+    # - Grafana:
+    #     icon: grafana.png
+    #     href: "{{HOMEPAGE_VAR_GRAFANA_URL}}"
+    #     siteMonitor : "{{HOMEPAGE_VAR_GRAFANA_URL_2}}"
+    #     description: Data visualization and monitoring display
+
+    # - Prometheus:
+    #     icon: prometheus.png
+    #     href: "{{HOMEPAGE_VAR_PROMETHEUS_URL}}"
+    #     siteMonitor: "{{HOMEPAGE_VAR_PROMETHEUS_URL_2}}"
+    #     description: Real-time monitoring, metrics and alerting
+
+# - Security:
+#     - Wazuh:
+#         icon: wazuh.png
+#         href: "{{HOMEPAGE_VAR_WAZUH_URL}}"
+#         siteMonitor: "{{HOMEPAGE_VAR_WAZUH_URL_2}}"
+#         description: Monitoring, detection, and alerting of security events and incidents.
+
+#     - Authentik:
+#         icon: authentik.png
+#         href: "{{HOMEPAGE_VAR_AUTHENTIK_URL}}"
+#         siteMonitor: "{{HOMEPAGE_VAR_AUTHENTIK_URL_2}}"
+#         description: Centralized single single sign-on authentication using OAuth
+
+#- Sample Template:
+#    - Appname:
+#        icon: test.png
+#        href: "{{HOMEPAGE_VAR_APPNAME_URL}}"
+#        siteMonitor: "{{HOMEPAGE_VAR_APPNAME_URL_2}}"
+#        description: app desc

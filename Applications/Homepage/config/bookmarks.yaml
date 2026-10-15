@@ -1,0 +1,22 @@
+---
+    # For configuration options and examples, please see:
+    # https://gethomepage.dev/configs/bookmarks
+
+    - Developer:
+        - Homelab Github:
+            - abbr: TH
+              href: https://github.com/Terabit3/homelab
+              description: Homelab Documentation
+
+    - Markdown Editor:
+        - StackEdit:
+           - abbr: SE
+             href: https://stackedit.io/app#
+
+    - Bookmarks:
+        - TorrentLeech:
+           - abbr: TOR-L
+             href: https://torrentleech.org
+
+        - Servius Media Management Panel:
+            - href: http://192.168.50.121:30056/board
