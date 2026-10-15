@@ -40,3 +40,7 @@ Next: read-only `sudo ls -l /var/lib/docker/volumes/portainer_data/_data/compose
 ## 2026-10-15 — original Uptime Kuma Compose verified
 
 Screenshot of HomePi command output confirms Portainer original at `/var/lib/docker/volumes/portainer_data/_data/compose/2/docker-compose.yml` (230 bytes); its service `uptime-kuma` uses image `louislam/uptime-kuma:1`, `container_name: uptime-kuma`, port `3001:3001`, `restart: always`, and bind mount `/home/dietpi/docker/uptimek:/app/data`. Existing database is independent of Portainer's stack file. Preferred copy location: `/opt/uptime-kuma/compose.yaml` (not yet confirmed created). Keep original and existing data in place until Dockhand adoption and project-label inspection.
+
+## 2026-10-15 — Uptime Kuma project verified and Compose copied
+
+Verified from HomePi SSH screenshot: `/opt/uptime-kuma/compose.yaml` exists (230 bytes, root-owned) and passes `docker compose config --quiet`; project label `uptime-kuma`, service label `uptime-kuma`, old working directory `/data/compose/2`. Original Portainer Compose remains intact. No Uptime Kuma redeploy performed. Dockhand currently lacks an `/opt` mount; next step is inspect Dockhand's exact creation options, then safely recreate Dockhand with host `/opt` mapped to container `/opt`, retain data/network/port settings, and import existing Compose without force redeploy. Verify monitors/history before Portainer removal.
