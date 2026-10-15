@@ -3,6 +3,20 @@ Updated: 2026-10-15
 
 **Current priority:** Harden Servius and HomePi, eliminate operational faults, establish reliable automated backups, safe updates, alerting, and recovery. This is a planning checklist, not a live status report. Never commit credentials, .env contents, SSH keys, or Uptime Kuma Push tokens.
 
+## October 15 operational follow-ups
+- [x] Retire Parrot Docker deployment and all its project configuration; preserve WinApps and Whisparr.
+- [x] Remove 340 unused historical Docker images after manifest preview, retain container images and one unused rollback candidate per repository; leave Docker volumes untouched.
+- [x] Repair shell home and persistent baby-blue Bash prompt for TrueNAS user `timhu`.
+- [x] Disable broken legacy `speedpool/ix-apps` snapshot cron; native ZFS snapshot tasks remain enabled.
+- [x] Repair Kuma Docker host association and assign Discord notifications to Lidarr and Dockge; verify sync healthy.
+- [ ] Delete stale Parrot Kuma monitor ID 63.
+- [ ] Inspect 354 unreferenced Docker volumes **without pruning**; review Dockhand image-update policy.
+- [ ] Run next manual Docker image/rollback cleanup review around **2027-01-13** (~90 days). No automatic pruning.
+- [ ] Restore RAIDZ2 missing member after ordered SATA power cable arrives; verify pool and resilver, then scrub per safe maintenance plan.
+- [ ] Restore offsite protection: MEGA cloud sync tasks currently disabled, one last state FAILED; speedpool replication task currently disabled.
+- [ ] Revisit TrueNAS update 24.10.2.3 → 24.10.2.4 after config backup/health verification.
+- [ ] Migrate `timhu` SSH from password override to tested public-key-only access via TrueNAS supported settings.
+
 ## P0: Storage and recoverability
 - [ ] Verify current praesidium RAIDZ2 health, historic degraded/power cable concern, scrubs, SMART, and alerts.
 - [ ] Establish independent versioned backups for speedpool (single NVMe; no redundancy), including appdata and critical database/VM data.
@@ -27,7 +41,7 @@ Updated: 2026-10-15
 - [ ] **On Servius existing Uptime Kuma WebUI only:** create HomePi - Daily Backup Push monitor; ~25-hour heartbeat window and notifications. Wire HomePi success heartbeat *after* checksum-verified backup and retention. Test missed/failed backups. Do not install Kuma on HomePi.
 - [ ] Safely test retention with disposable expired archive examples, exact directory guard, and refine weekly buckets/calendar logic.
 - [ ] Reassess 5-minute backup timeout with growth/network variability; verify first unattended overnight run and missed-run recovery.
-- [ ] Centralize all backup/storage/service alerts in existing Servius monitoring.
+- [ ] Centralize all backup/storage/service alerts in existing Servius monitoring; add HomePi Uptime Kuma monitor to Homepage.
 
 ## P2: Work out existing kinks
 - [ ] Gradually standardize Docker stack management in Dockhand, preserving Compose locations and homepage.env editing before removing Portainer/Dockge.
@@ -56,7 +70,7 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 - [ ] Recommendarr — research recommendation automation.
 - [ ] Maintainarr — assess rules-based library maintenance; test dry-run and exclusions.
 - [ ] Qui — assess torrent-management interface.
-- [ ] Tdarr — assess transcoding, hardware acceleration, resource limits and safety.
+- [ ] Tdarr — **retired**; revisit only if the operator explicitly decides to redeploy (old images removed 2026-10-15).
 - [ ] Automate GitHub documentation with review and secret protection.
 - [ ] SponsorBlockTV — check compatibility with playback environment.
 - [ ] Beszel — compare lightweight host metrics to existing Kuma/Grafana tools.
