@@ -1,0 +1,15 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    env_file:
+      - ./homepage.env
+    environment:
+      - UID=1000
+      - GID=1000
+      - 'HOMEPAGE_ALLOWED_HOSTS=192.168.50.121:3000,localhost,127.0.0.1'
+    ports:
+      - 3000:3000
+    volumes:
+      - /mnt/speedpool/appdata/homepage/config:/app/config # Make sure your local config directory exists
