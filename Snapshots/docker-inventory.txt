@@ -1,0 +1,49 @@
+ix-syncthing-syncthing-1|syncthing/syncthing:2.1.6|Up 2 hours (healthy)|ix-syncthing
+ix-filebrowser-quantum-filebrowser-quantum-1|ghcr.io/gtsteffaniak/filebrowser:2.0.0-stable|Up 3 hours (healthy)|ix-filebrowser-quantum
+ix-filebrowser-quantum-init-1|mikefarah/yq:4.54.1|Exited (0) 3 hours ago|ix-filebrowser-quantum
+ix-filebrowser-quantum-permissions-1|ixsystems/container-utils:1.0.2|Exited (0) 3 hours ago|ix-filebrowser-quantum
+kuma-container-sync|ghcr.io/benrhughes/kuma-container-sync:latest|Up 3 hours (unhealthy)|kuma-sync
+ix-uptime-kuma-uptime-kuma-1|ghcr.io/louislam/uptime-kuma:2.5.6|Up 12 hours (healthy)|ix-uptime-kuma
+homepage|ghcr.io/gethomepage/homepage:latest|Up 20 hours (healthy)|homepage
+authentik-server-1|ghcr.io/goauthentik/server:2026.8.3|Up 21 hours (healthy)|authentik
+authentik-worker-1|ghcr.io/goauthentik/server:2026.8.3|Up 21 hours (healthy)|authentik
+authentik-postgresql-1|postgres:16-alpine|Up 21 hours (healthy)|authentik
+bazarr|lscr.io/linuxserver/bazarr:latest|Up 24 hours|arr-stack-secondary
+houndarr|ghcr.io/av1155/houndarr:latest|Up 24 hours (healthy)|arr-stack-secondary
+unpackerr|golift/unpackerr|Up 24 hours|arr-stack-secondary
+ix-dockhand-dockhand-1|fnsys/dockhand:v1.0.53|Up 24 hours (healthy)|ix-dockhand
+ix-calibre-web-automated-calibre-web-automated-1|ghcr.io/crocodilestick/calibre-web-automated:v4.0.8|Up 24 hours (healthy)|ix-calibre-web-automated
+nextcloud-cron|nextcloud:apache|Up 25 hours|nextcloud
+nextcloud|nextcloud:apache|Up 25 hours|nextcloud
+nextcloud-db|postgres:17-alpine|Up 25 hours (healthy)|nextcloud
+nextcloud-redis|redis:7-alpine|Up 25 hours|nextcloud
+byparr|ghcr.io/thephaseless/byparr:latest|Up 26 hours (healthy)|byparr
+boxarr|ghcr.io/iongpt/boxarr:latest|Up 26 hours (healthy)|boxarr
+ix-arr-dashboard-arr-dashboard-1|ghcr.io/kha-kis/arr-dashboard:2.24.1|Up 27 hours (healthy)|ix-arr-dashboard
+jellystat|cyfershepard/jellystat:latest|Up 28 hours (healthy)|arr-stack-stats
+jellystat-db|postgres:15.2|Up 28 hours|arr-stack-stats
+wizarr|ghcr.io/wizarrrr/wizarr:latest|Up 28 hours (healthy)|arr-stack-stats
+cleanuparr|ghcr.io/cleanuparr/cleanuparr:latest|Up 24 hours|arr-stack-secondary
+jellyseerr|ghcr.io/seerr-team/seerr:latest|Up 24 hours|arr-stack-secondary
+qbittorrent|linuxserver/qbittorrent:latest|Up 24 hours|arr-stack
+gluetun|qmcgaw/gluetun:latest|Up 24 hours (healthy)|arr-stack
+prowlarr|lscr.io/linuxserver/prowlarr:latest|Up 24 hours|arr-stack
+sonarr|lscr.io/linuxserver/sonarr:latest|Up 24 hours|arr-stack
+radarr|lscr.io/linuxserver/radarr:latest|Up 24 hours|arr-stack
+flaresolverr|ghcr.io/flaresolverr/flaresolverr:latest|Up 24 hours|arr-stack
+Dashy|lissy93/dashy|Up 28 hours (healthy)|dashy
+fail2ban|crazymax/fail2ban:latest|Up 23 hours (healthy)|fail2ban
+WinApps|ghcr.io/dockur/windows:latest|Exited (0) 25 hours ago|windows
+whisparr|ghcr.io/hotio/whisparr:v3-pr-eros-refactor-parser-52fb0f32917ab822be95d7a91abfff196b4e35ae|Exited (0) 29 hours ago|whisparr
+parrot|ghcr.io/aquelemiguel/parrot:latest|Exited (137) 29 hours ago|parrot
+ix-jellyfin-jellyfin-1|ghcr.io/jellyfin/jellyfin:12.2|Up 44 hours (healthy)|ix-jellyfin
+ix-jellyfin-permissions-1|ixsystems/container-utils:1.0.2|Exited (0) 44 hours ago|ix-jellyfin
+ix-immich-server-1|ghcr.io/immich-app/immich-server:v3.3.1|Up 46 hours (healthy)|ix-immich
+ix-immich-pgvecto-1|ghcr.io/immich-app/postgres:18-vectorchord1.1.1|Up 46 hours (healthy)|ix-immich
+ix-immich-pgvecto_upgrade-1|ixsystems/postgres-upgrade:1.2.22|Exited (0) 46 hours ago|ix-immich
+ix-immich-machine-learning-1|ghcr.io/immich-app/immich-machine-learning:v3.3.1|Up 46 hours (healthy)|ix-immich
+ix-immich-redis-1|valkey/valkey:9.1.2|Up 46 hours (healthy)|ix-immich
+ix-immich-permissions-1|ixsystems/container-utils:1.0.2|Exited (0) 46 hours ago|ix-immich
+ix-tailscale-tailscale-1|ghcr.io/tailscale/tailscale:v1.102.5|Up 5 days (healthy)|ix-tailscale
+ix-pihole-pihole-1|pihole/pihole:2026.09.0|Up 5 days (healthy)|ix-pihole
+ix-nginx-proxy-manager-npm-1|jc21/nginx-proxy-manager:2.16.0|Up 5 days (healthy)|ix-nginx-proxy-manager
