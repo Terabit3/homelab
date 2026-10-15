@@ -2,6 +2,16 @@
 
 Entries distinguish **verified from terminal output**, **reported configuration**, and **pending verification**. Dated snapshots are not live status.
 
+## 2026-10-15 12:43 — Servius read-only health audit (iOS)
+
+- **P0:** `sudo zpool status -x` confirmed `praesidium` **DEGRADED**, RAIDZ2 with one `UNAVAIL` member (`3646705126451754359`); ZFS reports label missing/invalid. Three other members ONLINE, no known data errors. Last displayed scrub Oct 11: repaired 0B, 0 errors. **Do not clear errors, replace member, scrub on demand or change pool until on-site identification and recovery plan.**
+- `df -h /mnt/speedpool /mnt/praesidium` showed mounted dataset usage 1% at those paths, **not** definitive recursive pool usage; inspect `zpool list` and `zfs list` later.
+- `ipa-epn.service` failed (IPA Expiring Password Notification); determine whether installed/needed before clearing or disabling.
+- `kuma-container-sync` running but unhealthy; logs pending.
+- Exited-0 helper containers for FileBrowser Quantum, Jellyfin and Immich are not necessarily faults. `WinApps` and `whisparr` exited 0; `parrot` exited 137; classify intended retirement before deleting.
+- Failed job history contains TrueNAS app upgrades with validation errors (`run_as.user`, `network.web_port`), prior FileStash app creation failures, and recurring cron failure in a `zfs snapshot -r speedpool/ix-apps@auto-...` script; investigate live scheduled task ownership before editing.
+- **No destructive repair, service restart, pool mutation or installation performed in this audit.** Continue only safe low-impact fixes from iOS; major repairs postponed until physically home.
+
 ## 2026-10-15 — HomePi backup reliability, planning and documentation
 
 ### Verified
