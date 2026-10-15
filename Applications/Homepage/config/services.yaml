@@ -12,19 +12,19 @@
           key: "{{HOMEPAGE_VAR_TRUENAS_API_KEY}}"
           enablePools: true
           nasType: scale
-
+    
     - Windows 11:
         icon: microsoft-windows.png
         href: "{{HOMEPAGE_VAR_WINDOWS_URL}}"
         siteMonitor: "{{HOMEPAGE_VAR_WINDOWS_URL_2}}"
         description: Windows 11 on Docker
-
+    
     - Dockhand:
         icon: dockhand.png
         href: "{{HOMEPAGE_VAR_DOCKHAND_URL}}"
         siteMonitor: "{{HOMEPAGE_VAR_DOCKHAND_URL_2}}"
         description: "Docker management interface"
-
+    
     - Arr Control Center:
         icon: sh-arr-dashboard
         href: "{{HOMEPAGE_VAR_ARR_DASHBOARD_URL}}"
@@ -200,7 +200,7 @@
         #    type: lidarr
         #    url: "{{HOMEPAGE_VAR_LIDARR_URL_2}}"
         #    key: "{{HOMEPAGE_VAR_LIDARR_API_KEY}}"
-
+    
     - Whisparr:
         icon: whisparr.png
         href: "{{HOMEPAGE_VAR_WHISPARR_URL}}"
@@ -239,19 +239,19 @@
             #username: "{{HOMEPAGE_VAR_QBITTORRENT_USER}}"
             #password: "{{HOMEPAGE_VAR_QBITTORRENT_PASS}}"
             #enableLeechProgress: true # optional, defaults to false
-
+    
     - Houndarr:
         icon: houndarr.png
         href: "{{HOMEPAGE_VAR_HOUNDARR_URL}}"
         siteMonitor: "{{HOMEPAGE_VAR_HOUNDARR_URL_2}}"
         description: Automatic video quality upgrading
-
+    
     - Cleanuparr:
         icon: cleanuparr.png
         href: "{{HOMEPAGE_VAR_CLEANARR_URL}}"
         siteMonitor: "{{HOMEPAGE_VAR_CLEANARR_URL_2}}"
         description: Advanced Servarr download management
-
+    
     - Boxarr:
         icon: boxarr.png
         href: "{{HOMEPAGE_VAR_BOXARR_URL}}"
