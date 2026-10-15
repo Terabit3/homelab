@@ -16,6 +16,10 @@
 | Check or restore a backup | [Backup & restore](Operations/Backup-and-Restore.md) |
 | Find an app, its config or owner | [Application directory](Applications/README.md) · [Service inventory](Services.md) |
 | Check hardware, ZFS layout or host details | [Infrastructure](Infrastructure/README.md) |
+| Review changes made and their verification | **[Changelog](CHANGELOG.md)** |
+| Locate important host/app/backup directories | **[Important paths](Operations/Important-Paths.md)** |
+| Operate HomePi backups and plan recovery | [HomePi backup runbook](Operations/HomePi-Backup-and-Restore.md) |
+| Quick Servius operational commands | [Servius quick reference](Operations/Servius-Operations-Quickref.md) |
 | Track hardening and future plans | **[Roadmap / TODO](ROADMAP.md)** |
 | Follow a previously diagnosed problem | [Troubleshooting cases](Troubleshooting/README.md) |
 | See observed container state | [Dated Docker snapshot](Snapshots/Docker-Inventory.md) |
