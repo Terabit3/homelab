@@ -46,6 +46,27 @@ Updated: 2026-10-15
 - [ ] Improve Homepage dashboard and Roman-themed service icons once operations are stable.
 - [ ] Assess additional reliable services, ARR enhancements and hardware/storage expansion only after P0/P1.
 
+## Planned application deployments (current shortlist)
+
+These are deployment candidates, not assumed installed. Evaluate compatibility, maintenance, overlap with existing services, security, storage paths, backup and rollback before deploying one by one in Dockhand.
+
+- [ ] CrowdSec — verify/improve existing deployment and proxy integration.
+- [ ] Recyclarr / Configarr — compare and select ARR profile/config synchronizer.
+- [ ] Decluttarr / Cleanuparr — review existing Decluttarr and evaluate replacement or complement without conflicting cleanup.
+- [ ] Recommendarr — research recommendation automation.
+- [ ] Maintainarr — assess rules-based library maintenance; test dry-run and exclusions.
+- [ ] Qui — assess torrent-management interface.
+- [ ] Tdarr — assess transcoding, hardware acceleration, resource limits and safety.
+- [ ] Automate GitHub documentation with review and secret protection.
+- [ ] SponsorBlockTV — check compatibility with playback environment.
+- [ ] Beszel — compare lightweight host metrics to existing Kuma/Grafana tools.
+- [ ] Replace Lidarr — compare maintained alternatives and migration.
+
+### Older future ideas
+- [ ] Grafana/Prometheus — assess existing deployment before completing monitoring dashboards.
+- [ ] Purchase domain and evaluate Cloudflare proxy/tunnel architecture.
+- [ ] Ansible — automate repeatable homelab deployments after configurations stabilize.
+
 ## Definition of smooth sailing
 - [ ] No unknown degraded pools or persistent failed jobs/unhealthy services.
 - [ ] Versioned, monitored critical backups with at least one proven restore.
