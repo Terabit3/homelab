@@ -12,6 +12,12 @@ Entries distinguish **verified from terminal output**, **reported configuration*
 - Failed job history contains TrueNAS app upgrades with validation errors (`run_as.user`, `network.web_port`), prior FileStash app creation failures, and recurring cron failure in a `zfs snapshot -r speedpool/ix-apps@auto-...` script; investigate live scheduled task ownership before editing.
 - **No destructive repair, service restart, pool mutation or installation performed in this audit.** Continue only safe low-impact fixes from iOS; major repairs postponed until physically home.
 
+## 2026-10-15 — Docker monitor final verification
+
+- After authenticated API bulk repair, read-only SQLite query confirmed **53 Docker monitors assigned to Docker Host ID 2**, with none unassigned. Original count was 51; two additional monitor records may have been created during synchronization and require duplicate review.
+- Sync helper health reported `healthy`; no failed systemd units. Temporary repair script deleted.
+- Pre-repair 32 MiB SQLite backup retained. Historical uptime data not cleared. Remaining task: identify duplicated/stopped monitors and verify alert coverage.
+
 ## 2026-10-15 — Docker monitor host bulk repair
 
 - Repaired 48 missing Docker Host associations through Uptime Kuma's authenticated API, keeping existing monitor IDs and monitor history. The batch reported `BATCH FINISHED` and each modified record passed its application-level post-update assertions.
