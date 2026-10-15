@@ -16,6 +16,7 @@
 | Check or restore a backup | [Backup & restore](Operations/Backup-and-Restore.md) |
 | Find an app, its config or owner | [Application directory](Applications/README.md) · [Service inventory](Services.md) |
 | Check hardware, ZFS layout or host details | [Infrastructure](Infrastructure/README.md) |
+| Track hardening and future plans | **[Roadmap / TODO](ROADMAP.md)** |
 | Follow a previously diagnosed problem | [Troubleshooting cases](Troubleshooting/README.md) |
 | See observed container state | [Dated Docker snapshot](Snapshots/Docker-Inventory.md) |
 | Record a new problem or app | [Quick edit guide](CONTRIBUTING.md) · [Templates](Templates/) |
