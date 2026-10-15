@@ -1,0 +1,68 @@
+name: arr-stack-stats
+
+services:
+  jellystat-db:
+    image: postgres:15.2
+    shm_size: 1gb
+    container_name: jellystat-db
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: "10m"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./jellystat-db/data:/var/lib/postgresql/data
+    networks:
+      - stats-db
+
+  jellystat:
+    image: cyfershepard/jellystat:latest
+    container_name: jellystat
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: "10m"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_IP: jellystat-db
+      POSTGRES_PORT: "5432"
+      JWT_SECRET: ${JWT_SECRET}
+      TZ: America/Edmonton
+    volumes:
+      - ./jellystat/backup-data:/app/backend/backup-data
+    ports:
+      - "5056:3000"
+    depends_on:
+      - jellystat-db
+    networks:
+      - stats-db
+      - arr-stack_shared
+
+  wizarr:
+    image: ghcr.io/wizarrrr/wizarr:latest
+    container_name: wizarr
+    networks:
+      - arr-stack_shared
+    ports:
+      - "5690:5690"
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=America/Edmonton
+      - DISABLE_BUILTIN_AUTH=false
+    volumes:
+      - ./wizarr/data:/data
+    restart: unless-stopped
+
+networks:
+  stats-db:
+    internal: true
+  arr-stack_shared:
+    external: true

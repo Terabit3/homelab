@@ -1,0 +1,78 @@
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    networks:
+      - arr-stack_shared
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=America/Edmonton
+    volumes:
+      - ./bazarr/config/:/config
+      - ${MEDIA_PATH}:/media # Use the MEDIA_PATH variable
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+  jellyseerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: jellyseerr
+    networks:
+      - arr-stack_shared
+    environment:
+      - TZ=America/Edmonton
+    ports:
+      - 5055:5055
+    volumes:
+      - ./jellyseerr/:/app/config
+    restart: unless-stopped
+  unpackerr:
+    image: golift/unpackerr
+    container_name: unpackerr
+    networks:
+      - arr-stack_shared
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=America/Edmonton
+    volumes:
+      - ./unpackerr/config:/config
+      - ${MEDIA_PATH}:/media
+    ports:
+      - 5757:5757
+    restart: unless-stopped
+  cleanuparr:
+    image: ghcr.io/cleanuparr/cleanuparr:latest
+    container_name: cleanuparr
+    networks:
+      - arr-stack_shared
+    environment:
+      - PUID=568
+      - PGID=568
+      - TZ=America/Edmonton
+    volumes:
+      - /mnt/speedpool/appdata/stacks/cleanuparr/cleanuparr/config:/config
+      - /mnt/praesidium/appdata/arr_common:/media
+    ports:
+      - "11011:11011"
+    restart: unless-stopped
+  houndarr:
+    image: ghcr.io/av1155/houndarr:latest
+    container_name: houndarr
+    networks:
+      - arr-stack_shared
+    ports:
+      - 8877:8877
+    environment:
+      - TZ=America/Edmonton
+      - PUID=568
+      - PGID=568
+    volumes:
+      - ./houndarr:/config
+    restart: unless-stopped
+networks:
+  arr-stack_default:
+    external: true
+  arr-stack_shared:
+    external: true
