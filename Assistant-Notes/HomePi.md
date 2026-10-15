@@ -15,3 +15,16 @@ Docker containers: Uptime Kuma (`louislam/uptime-kuma:1`, host port 3001), Porta
 **Safety:** No blind `Save & redeploy`; don't move/overwrite existing Docker data; avoid kernel boot changes while remote.
 
 See [host docs](../Hosts/HomePi/README.md) and [verified first backup record](../Operations/HomePi-Backup-2026-10-15.md). Earlier backup archives were integrity-tested but not restore-tested.
+
+## 2026-10-15 — filesystem inspection (verified via Termius screenshot)
+
+- Docker root: `/var/lib/docker`.
+- Existing `/opt` directories: `containerd`, `dockhand`, `pihole`. No `/opt/stacks` shown at capture.
+- `/srv` contains no application directories in the displayed listing.
+- User home contains `/home/dietpi/docker` and backup script `/home/dietpi/homepi-first-backup.sh`.
+- Search of `/opt`, `/srv`, `/home/dietpi` to depth 5 returned no standard Compose filenames.
+- Dockhand mounts: host `/opt/dockhand` -> container `/opt/dockhand`; Docker socket -> same path. `/opt/stacks` is not mounted into Dockhand yet.
+- Uptime Kuma mount: host bind begins `/home/dietpi/docker/uptimek...` -> `/app/data`; screenshot clips full source path, so confirm with inspect before editing.
+- Portainer volume: `portainer_data` at `/var/lib/docker/volumes/portainer_data/_data` -> `/data`. Thus original Compose file should reside at `/var/lib/docker/volumes/portainer_data/_data/compose/2/docker-compose.yml` if still present. Verify file before use.
+
+Next: read-only `sudo ls -l /var/lib/docker/volumes/portainer_data/_data/compose/2/`, and inspect Compose file with secrets redacted. Prefer creating `/opt/stacks` for new apps; preserve existing Uptime Kuma data path and Compose project name during adoption.
