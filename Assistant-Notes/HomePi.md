@@ -28,3 +28,11 @@ See [host docs](../Hosts/HomePi/README.md) and [verified first backup record](..
 - Portainer volume: `portainer_data` at `/var/lib/docker/volumes/portainer_data/_data` -> `/data`. Thus original Compose file should reside at `/var/lib/docker/volumes/portainer_data/_data/compose/2/docker-compose.yml` if still present. Verify file before use.
 
 Next: read-only `sudo ls -l /var/lib/docker/volumes/portainer_data/_data/compose/2/`, and inspect Compose file with secrets redacted. Prefer creating `/opt/stacks` for new apps; preserve existing Uptime Kuma data path and Compose project name during adoption.
+
+## 2026-10-15 — monitoring and management roadmap
+
+**Decision:** Replace Portainer with Dockhand on HomePi; import existing Uptime Kuma Compose stack into Dockhand without losing monitor data/history. Retire Portainer only after verified takeover and keep its volume temporarily for rollback.
+
+**Future possibility (not approved for deployment):** Consider Beszel for lightweight system/container resource monitoring. Beszel does not provide a full replacement for Uptime Kuma's HTTP/service availability checks; compare overlapping needs before removing Kuma. Could centralize a Beszel hub on Servius with a HomePi agent to minimize Pi memory usage.
+
+**Directory convention:** `/opt/<app-name>/` directly, without `/opt/stacks/`. Do not change original Uptime Kuma data mount blindly.
