@@ -12,6 +12,11 @@ Entries distinguish **verified from terminal output**, **reported configuration*
 - Failed job history contains TrueNAS app upgrades with validation errors (`run_as.user`, `network.web_port`), prior FileStash app creation failures, and recurring cron failure in a `zfs snapshot -r speedpool/ix-apps@auto-...` script; investigate live scheduled task ownership before editing.
 - **No destructive repair, service restart, pool mutation or installation performed in this audit.** Continue only safe low-impact fixes from iOS; major repairs postponed until physically home.
 
+## 2026-10-15 — Small service cleanup
+
+- Confirmed an unused password-expiration notification timer was failing because its identity client was not configured. Disabled the timer, reset the failed state, and verified no failed systemd units remained.
+- Monitoring sync remained unhealthy after a Docker-host naming correction; its last log still showed a host-name lookup failure. Further verification pending; no container restart or redeployment performed.
+
 ## 2026-10-15 — Additional read-only housekeeping audit
 
 - Confirmed one storage pool remains degraded; physical repair deferred until on site.
