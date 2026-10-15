@@ -9,7 +9,7 @@ Updated: 2026-10-15
 - [x] Repair shell home and persistent baby-blue Bash prompt for TrueNAS user `timhu`.
 - [x] Disable broken legacy `speedpool/ix-apps` snapshot cron; native ZFS snapshot tasks remain enabled.
 - [x] Repair Kuma Docker host association and assign Discord notifications to Lidarr and Dockge; verify sync healthy.
-- [ ] Delete stale Parrot Kuma monitor ID 63.
+- [x] Remove stale Parrot Kuma monitor ID 63 in WebUI (operator-confirmed 2026-10-15); verify it is not recreated by the next container-sync cycle.
 - [ ] Inspect 354 unreferenced Docker volumes **without pruning**; review Dockhand image-update policy.
 - [ ] Run next manual Docker image/rollback cleanup review around **2027-01-13** (~90 days). No automatic pruning.
 - [ ] Restore RAIDZ2 missing member after ordered SATA power cable arrives; verify pool and resilver, then scrub per safe maintenance plan.
