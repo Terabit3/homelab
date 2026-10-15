@@ -17,6 +17,16 @@
 - NPM `ix-nginx-proxy-manager-npm-1` and Authentik cover network/app access; verify routes and policies live. `kuma-container-sync` was unhealthy in Oct 14 capture.
 - AMP hosts game instances in Debian VM; its ZIP sync to Servius and h711nt was previously hash-verified but restore untested.
 
+## October 15 verified operational status (not live)
+- Docker cleanup reduced reported image storage from **308.2 GB to 64.03 GB**; 113 images remained and ~41.17 GB was still classified reclaimable. 340 manifest-selected unused images removed with zero failures; preserve container images, rollback candidates and **all Docker volumes**. Do not run blanket image/volume pruning.
+- `parrot` Compose project, image, network and config removed; stopped `WinApps` and `whisparr` deliberately preserved. Parrot Uptime Kuma monitor #63 still pending deletion.
+- `ix-dockhand-dockhand-1`, `ix-calibre-web-automated-calibre-web-automated-1`, and `kuma-container-sync` were healthy after cleanup. Sync every 300s; 74/74 active monitors had notification coverage when checked.
+- Broken cron ID 1 disabled. Native periodic snapshot tasks remained enabled, but snapshot age/allow-empty should be checked individually.
+- `praesidium` **DEGRADED** with one unavailable RAIDZ2 member, attributed by operator to bad SATA power path; cable ordered, repair unverified. Do not assume hardware repaired.
+- Both MEGA cloud sync tasks disabled (one previous FAILED), and speedpool replication disabled. Check independent recovery options.
+- TrueNAS user home `/mnt/speedpool/homes/timhu`, blue Bash prompt persisted through SSH login. `timhu` Match User SSH password override still allows passwords; key-only remains pending.
+- Refer to [October 15 changelog](../CHANGELOG.md) for exact screenshots-derived evidence, rollback and outstanding work.
+
 ## Read-only first response
 ```bash
 sudo zpool status
