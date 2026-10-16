@@ -1,9 +1,30 @@
-# Operations · Recovery and routine maintenance
+# Operations — Servius and HomePi
 
-- **[Start with the emergency checklist](../START-HERE.md)** if something is currently broken.
-- [TrueNAS troubleshooting and recovery](TrueNAS-Troubleshooting-Runbook.md) — triage host, pools, shares, boot, apps, network.
-- [Disk replacement and expansion](TrueNAS-Disk-Replacement-and-Expansion.md) — physical disks, RAIDZ2 and boot-mirror cautions.
-- [Backup and restore](Backup-and-Restore.md) — what is protected, how to confirm, and what is untested.
-- [Services & operations map](../Services.md) — applications and deployment ownership.
+**Use this page as the operations entry point.** Choose the task, then use its dedicated runbook. Historical captures are not current host state.
 
-All procedures are **read-first**. Especially for storage changes: confirm backups, actual software release, pool topology, and disk serials.
+| Task | Canonical document | Covers |
+|---|---|---|
+| **Something broken right now** | [Emergency triage](../START-HERE.md) | First checks and stop conditions |
+| **Quick host health / Docker checks** | [Servius quick reference](Servius-Operations-Quickref.md) | Read-only commands, managers, immediate warnings |
+| **Find a filesystem path** | [Important paths](Important-Paths.md) | Servius, HomePi, AMP VM, h711nt |
+| **Check protection or restore data** | [Backup and restore](Backup-and-Restore.md) | Risk, confidence, AMP, appdata and TrueNAS |
+| **Restore HomePi or check its backup** | [HomePi backup runbook](HomePi-Backup-and-Restore.md) | Timer, retention, original SHA-256 baseline, restore test |
+| **TrueNAS host, app or dataset fails** | [TrueNAS troubleshooting runbook](TrueNAS-Troubleshooting-Runbook.md) | Pools, snapshots, boot, networking, Docker |
+| **Replace a disk or expand storage** | [Disk replacement and expansion](TrueNAS-Disk-Replacement-and-Expansion.md) | Identification, RAIDZ2, replace and boot-mirror precautions |
+
+## Other sources, with distinct roles
+
+- [Service and host index](../Services.md) — what runs on which host and who owns it.
+- [Applications](../Applications/README.md) — application-specific operations and dependencies.
+- [Servius current handoff](../Assistant-Notes/Servius.md) — ongoing migration decisions and next steps.
+- [Roadmap](../ROADMAP.md) — future work, not deployed changes.
+- [Changelog](../CHANGELOG.md) — dated changes and verification.
+- [Historical reports](../Archive/README.md) — previous captures, including the Oct 14–15 operations recap.
+
+## Standard change sequence
+
+**Read-only state → identify exact host and owner → assess pool/backup health → establish rollback → one controlled change → validate service, files and monitoring → document outcome.**
+
+**Current known storage blocker (Oct 16 evidence):** `praesidium` RAIDZ2 DEGRADED (one UNAVAIL member); `speedpool` single NVMe, no redundancy. Neither local snapshots nor a successful live-file sync guarantee independently recoverable database backups. Check live state before risk.
+
+**Boundaries:** These documents contain commands for different machines and software versions. Never run a VM path on TrueNAS or redeploy TrueNAS `ix-*` Apps as ordinary Compose stacks. Do not share populated `.env`, passwords, backup tokens or full credential-bearing inspect output.
