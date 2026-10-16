@@ -1,19 +1,20 @@
 # Syncthing
 
-## What it does
-To be documented.
+## Hosts
+**Servius (TrueNAS SCALE) and h711nt (Windows 11).** Servius: send-only appdata source. h711nt: receive-only replica for configured folders.
 
-## Current setup
-To be documented.
+## Purpose
+Peer-to-peer folder replication between hosts.
 
-## Configuration and important directories
-To be documented.
+## Homelab notes
+A live replicated SQLite or PostgreSQL database is not an application-consistent restore. Keep Send Only / Receive Only roles explicit.
 
-## Useful commands
-To be documented.
+**Evidence status:** Dated observations through 2026-10-16; current container state must be checked on each host.
 
-## Troubleshooting
-Add fixes here as problems are solved.
+## Related
+- [Application index](../README.md)
+- [Current Servius handoff](../../Assistant-Notes/Servius.md)
+- [Service inventory](../../Services.md)
+- [Operations](../../Operations/README.md)
 
-## Lessons learned
-Record anything worth remembering.
+Do not publish login credentials or environment files.
