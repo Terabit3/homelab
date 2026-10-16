@@ -1,5 +1,8 @@
 # Nginx Proxy Manager
 
+## Hosts
+**Servius (TrueNAS SCALE).** TrueNAS-managed reverse proxy.
+
 ## Purpose
 Reverse proxy and TLS certificate manager for application domain routing.
 
