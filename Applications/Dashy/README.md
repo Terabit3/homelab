@@ -1,5 +1,8 @@
 # Dashy
 
+## Hosts
+**Servius (TrueNAS SCALE).** User-managed Compose stack.
+
 ## Purpose
 Customizable homelab service dashboard and launcher.
 
