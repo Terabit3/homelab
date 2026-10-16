@@ -1,6 +1,6 @@
 # Operations — Servius and HomePi
 
-**Use this page as the operations entry point.** Choose the task, then use its dedicated runbook. Historical captures are not current host state.
+**Dual purpose:** a day-to-day operations reference **and** a step-by-step entry point for rebuilding the homelab after hardware loss or loss of familiarity with the setup. Pick the task below. Historical captures are not current host state.
 
 | Task | Canonical document | Covers |
 |---|---|---|
@@ -11,6 +11,10 @@
 | **Restore HomePi or check its backup** | [HomePi backup runbook](HomePi-Backup-and-Restore.md) | Timer, retention, original SHA-256 baseline, restore test |
 | **TrueNAS host, app or dataset fails** | [TrueNAS troubleshooting runbook](TrueNAS-Troubleshooting-Runbook.md) | Pools, snapshots, boot, networking, Docker |
 | **Replace a disk or expand storage** | [Disk replacement and expansion](TrueNAS-Disk-Replacement-and-Expansion.md) | Identification, RAIDZ2, replace and boot-mirror precautions |
+
+## Rebuilding or rediscovering the homelab
+
+Start with [Rebuild and Rediscovery](Rebuild-and-Rediscovery.md) when you do not remember the system or need to restore it on replacement hardware. It explains how to identify hosts, protect existing data, locate backups and private configuration, select the correct deployment owner, and restore services in dependency order. Follow individual runbooks for executable recovery details; do not assume a dated Compose example is production-ready.
 
 ## Other sources, with distinct roles
 
