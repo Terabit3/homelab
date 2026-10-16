@@ -1,69 +1,33 @@
-# ARR Stack — Servius
+# ARR ecosystem — Servius
 
-## Overview
+> **Status as of Oct 16, 2026:** migration is **staged, not deployed**. For current decisions and safety notes, see [Servius assistant handoff](../../Assistant-Notes/Servius.md). For operational commands see [Servius quickref](../../Operations/Servius-Operations-Quickref.md).
 
-Media automation applications running on Servius, managed through Dockhand.
+## Currently deployed projects
 
-## Docker stacks
-
-| Stack | Applications |
+| Compose project | Current active services |
 |---|---|
-| arr-stack | Sonarr, Radarr, Prowlarr, qBittorrent, Gluetun, FlareSolverr |
-| arr-stack-secondary | Bazarr, Cleanuparr, Houndarr, Seerr, Unpackerr |
-| arr-stack-stats | Jellystat, PostgreSQL, Wizarr |
+| `arr-stack` | Gluetun, qBittorrent, Prowlarr, Radarr, Sonarr, FlareSolverr |
+| `arr-stack-secondary` | Bazarr, Cleanuparr, Houndarr, Jellyseerr, Unpackerr, Lidarr |
+| `arr-stack-stats` | Jellystat, PostgreSQL, Wizarr |
+| Individual deployments | Whisparr, Boxarr, Byparr |
+| Not currently running | Autobrr (standalone definition only) |
 
-## Where everything is stored
+Live Compose configurations are under `/mnt/speedpool/appdata/stacks/<project>/`. Shared network `arr-stack_shared`. The historical Compose examples in [compose/](compose/) describe **old deployments**, not the new design; do not redeploy them over running services.
 
-**Live configurations on Servius:** `/mnt/speedpool/appdata/stacks/<stack>/`
+## Agreed future structure — NOT YET LIVE
 
-**Original backups on my PC:** `E:\Homelab-Private\Servius\<stack>\`
+| Future Dockhand project | Services |
+|---|---|
+| `arr-essential` | Gluetun, qBittorrent |
+| `arr-primary` | FlareSolverr, Prowlarr, Radarr, Sonarr |
+| `arr-services` | Jellyseerr, Jellystat, PostgreSQL, Wizarr |
+| `arr-utilities` | Bazarr, Boxarr, Cleanuparr, Houndarr, Unpackerr |
+| Standalone | Lidarr, Whisparr (on demand), Byparr (testing), Autobrr (evaluation); future Qui (experimental) |
 
-**GitHub documentation:** `Applications/ARR Stack/compose/<stack>/`
+Portable standard: matching Compose project and directory name; `compose.yaml`, `.env.example`, private `.env`; alphabetic services; relative persistent appdata mounts; host-specific media paths via environment variables. `standby/` stores inactive alternatives but does not itself stop Docker containers. Avoid duplicate Compose owners.
 
-The real passwords, VPN keys, and secrets belong in the private backup, never in GitHub.
+## Staging / cutover
 
-## Useful commands
+Staged configuration at `/mnt/speedpool/appdata/stacks/staging/arr-compose-v2/`. The eight Compose configurations were validated 8/8 and Dockhand was able to read them; **no data moves or deployments have occurred**. Verify backups, compare actual mounts/credentials locally, and follow a controlled migration in reverse order of service criticality (VPN/qBit last). `praesidium` was DEGRADED as last checked; see [disk recovery runbook](../../Operations/TrueNAS-Disk-Replacement-and-Expansion.md).
 
-Run these in **Servius SSH**, not Windows PowerShell.
-
-**List ARR containers:**
-
-`sudo docker ps --filter label=com.docker.compose.project=arr-stack`
-
-**View recent logs:**
-
-`sudo docker logs --tail 100 sonarr`
-
-`sudo docker logs --tail 100 radarr`
-
-`sudo docker logs --tail 100 prowlarr`
-
-`sudo docker logs --tail 100 qbittorrent`
-
-`sudo docker logs --tail 100 gluetun`
-
-**Check Gluetun health:**
-
-`sudo docker inspect gluetun --format '{{.State.Health.Status}}'`
-
-## Troubleshooting
-
-Keep a separate Markdown document for each resolved issue in the `Troubleshooting/` folder.
-
-Each document should explain:
-
-- What stopped working
-- What caused the problem
-- Exactly how I fixed it
-- How I confirmed the fix
-- Anything I should remember next time
-
-## Rebuilding
-
-1. Retrieve the original Compose and `.env` files from `E:\Homelab-Private`.
-2. Restore the application data and required storage directories.
-3. Check mounts, permissions, networking, and dependencies.
-4. Review and deploy through Dockhand.
-5. Verify applications, VPN connectivity, and media paths.
-
-Do not overwrite existing application data without checking it first.
+Do not publish real credentials, full environment files, API keys or private tracker data. Do not assume a valid Compose file means the app will start or have correct data.
