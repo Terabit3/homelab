@@ -1,25 +1,23 @@
 # FileBrowser Quantum
 
-## Hosts
-**Servius (TrueNAS SCALE).** TrueNAS-managed file browsing app; displays mounted pools.
+**Host:** Servius / TrueNAS SCALE  
+**Deployment (dated evidence):** TrueNAS-managed `ix-filebrowser-quantum-filebrowser-quantum-1` using `ghcr.io/gtsteffaniak/filebrowser:2.0.0-stable`; healthy in Oct 14 snapshot.
 
-## Purpose
-Web file browser for browsing and administering mounted TrueNAS datasets.
+## Role
+Browser-based file handling for mounted TrueNAS storage; separate from SSH and host shell.
 
-## Servius / homelab context
-Shows mounted speedpool and praesidium storage; user uploaded ARR staging ZIP through speedpool/appdata/stacks/staging.
+## Dependencies and data
+UI shows `speedpool` and `praesidium`; actual read/write capability is limited to container mounts and dataset ACLs.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+Previously used to upload the ARR v2 staging ZIP to `speedpool/appdata/stacks/staging`. Check mounted paths and ACLs before renaming or deleting. Verify upload destination with TrueNAS CLI; browser cannot assume access to `/home`.
 
-## Operations and verification
-Access only mounted directories. Confirm mount read/write scope, permissions, authentication and recovery; never assume browsing access implies access to host /home.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, targeted `docker inspect --format` of health and mounts, and `sudo zpool status`. For TrueNAS-managed `ix-*` apps, manage through TrueNAS Apps.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Confirm owner, actual data paths and recoverable backups before a restart, update or migration. Verify function, proxied access and monitoring afterwards. The dated state above is not proof of current status.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Service inventory](../../Services.md) · [Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+Never publish credentials or live environment files.
