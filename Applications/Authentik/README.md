@@ -1,5 +1,8 @@
 # Authentik
 
+## Hosts
+**Servius (TrueNAS SCALE).** HomePi deployment not documented.
+
 ## Purpose
 Identity provider and single sign-on gateway for web applications. Review proxy authentication flows and application access policies.
 
