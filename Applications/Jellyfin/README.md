@@ -1,5 +1,8 @@
 # Jellyfin
 
+## Hosts
+**Servius (TrueNAS SCALE).** TrueNAS-managed media server.
+
 ## Purpose
 Self-hosted media server for streaming movies, television and other local media.
 
