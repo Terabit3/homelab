@@ -41,3 +41,17 @@ sudo ls -lh /mnt/praesidium/backups/homepi/homepi-backup/homepi-apps-*.tar.gz
 - [ ] Create Push monitor on existing Servius Uptime Kuma WebUI, success-only heartbeat after checksum and retention; test alerts. Never commit Push URL.
 - [ ] Verify first overnight unattended job and reboot catch-up.
 - [ ] Reevaluate five-minute timeout as archives grow.
+
+## Historical first full-system backup (October 15, 2026)
+
+This predates the automated application backups described above and is a **separate** root/boot/partition-map backup workflow. HomePi was Raspberry Pi 3B+ running DietPi 10.7.2 / Debian Bookworm ARM64. A one-time root TAR (services quieted), independent `/boot/firmware` archive and `sfdisk` partition map were produced. Archive integrity checked; **no restore test**, no proven daily schedule or alerts for that *initial* full-system method. Later automated application backups have their own schedule and verification described earlier; do not conflate the two.
+
+Export was `/mnt/praesidium/backups/homepi/export/`; Windows Syncthing Receive Only replica `E:\\TrueNAS Syncthing\\backups\\homepi` was reported Up to Date. Check current existence and hashes before restoration.
+
+| File | SHA256 |
+|---|---|
+| `homepi-root-20261015-001102.tar.gz` | `533adf51aee3f2a1692fb371fd597a49f05f10df1674437e86d29d532a21ec5f` |
+| `homepi-boot-20261015.tar.gz` | `2587930f1348c2f9448c8d67581a3b8a2a4f4400fb627fa1d8fd0d9aebaef4cf` |
+| `homepi-partitions-20261015.sfdisk` | `512a9266d0951139fba0eb823264f70cf6e873435861e9008faf23c131e276b6` |
+
+Before reusing this method, inspect its script's service restart and transfer-failure behavior. Archives are sensitive: **do not commit their contents or SSH credentials**. A spare-media restore test is still necessary.
