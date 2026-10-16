@@ -49,6 +49,13 @@ Check pool/alerts → locate owner and volume → backup/snapshot → one change
 - AirVPN Gluetun/WireGuard and qBittorrent listening port 37410 verified; external AirVPN TCP port test was open and TCP+UDP configured afterward. Preserve existing torrent VPN gateway.
 - Cleanuparr: Download Cleaner and Unlinked Downloads recommended disabled due TorrentLeech seeding risks. Confirm saved state. Cross-dataset hardlinks are not possible in current separate ZFS child dataset layout; preserve torrents labeled cleanuparr-unlinked.
 - Cleanuparr logs: stale Readarr and intermittently stopped Whisparr health checks. Bazarr logs: SUBDL external connection errors, some DNS and HTTP errors; not an ARR bridge failure.
-- Unpackerr: starts with 0 Sonarr and 0 Radarr servers; URLs/API keys commented in config, folder scanning interval 0s. Both API keys available locally. Automated repair attempt aborted before any changes due to erroneous exact section-count check; follow-up audit found exactly one [[sonarr]] at line 116 and [[radarr]] at line 137. Repair pending; protect seeded archives.
+- Unpackerr **fixed Oct 16**: configured one Sonarr at `http://sonarr:8989` and one Radarr at `http://radarr:7878`; `paths=["/media/downloads"]`, `delete_orig=false`. Verified process started with 1 server each; do not delete seeded archives.
 - HomePi already advertises a Tailscale residential exit and subnet routes with forwarding/NAT enabled. Existing Servius Tailscale advertises overlapping routes but IPv6 forwarding is disabled, causing a warning. A distinct AirVPN exit-node identity is planned, not deployed. Do not alter TrueNAS host default route.
 - Kasm, disposable browser/desktop, VPN monitoring and routed VPN-egress bridge are future ideas, not deployed.
+
+## Oct 16 migration preparation (not deployed)
+- Current status and operating rules: [Assistant Servius handoff](../Assistant-Notes/Servius.md).
+- Target: `arr-essential` (Gluetun/qBit), `arr-primary` (Sonarr/Radarr/Prowlarr/FlareSolverr), `arr-services` (Seerr/Jellystat/Postgres/Wizarr), `arr-utilities` (Bazarr/Boxarr/Cleanuparr/Houndarr/Unpackerr), plus standalone Lidarr, Whisparr, Byparr and Autobrr. No numbered prefixes. Qui experimental future.
+- Eight staged Compose projects at `/mnt/speedpool/appdata/stacks/staging/arr-compose-v2/`; all 8/8 parsed with local .env. Dockhand container UID 568 confirmed can read staged compose.yaml and .env. **Running containers, their project ownership and data paths remain on old deployments**; never start duplicates.
+- Dockhand permission false alarm: host `runuser -u '#568'` could not resolve the identity, but inside the Dockhand container both files were readable. `.env` mode 0640 root:568 in staging.
+- Gluetun qBit network namespace sharing and WireGuard variables checked present (not a VPN-egress test for new stack). `praesidium` still DEGRADED; defer risky cutover without verified backups.
