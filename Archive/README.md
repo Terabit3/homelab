@@ -3,6 +3,7 @@
 Use [main README](../README.md) for navigation, [Servius handoff](../Assistant-Notes/Servius.md) for current work and [Operations](../Operations/README.md) for procedures.
 
 ## Historical reference
+- [Original full Services and operations inventory (Oct 14)](Services-2026-10-14.md) — preserved before Services.md became a shorter directory
 - [Repository import/review summary](Repository-Review.md) — former loose README insert, import and review notes
 - [Servius Oct 14–15 operations recap](../Operations/2026-10-14-15-Recap.md) — dated actions, storage and backup findings
 - [HomePi backup history and original hashes](../Operations/HomePi-Backup-and-Restore.md) — baseline artifacts, not a proven restoration
