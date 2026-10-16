@@ -1,25 +1,23 @@
 # Immich
 
-## Hosts
-**Servius (TrueNAS SCALE).** TrueNAS-managed image/media library.
+**Host:** Servius / TrueNAS SCALE  
+**Deployment (dated evidence):** TrueNAS-managed `ix-immich`; server, machine-learning, PostgreSQL/VectorChord and Valkey containers observed healthy Oct 14.
 
-## Purpose
-Self-hosted photo and video organization with indexing, mobile backup and thumbnail generation.
+## Role
+Photo/video backup, indexing, search and gallery management.
 
-## Servius / homelab context
-TrueNAS-managed app running in October 2026 inventory; images, uploads and database have separate dataset/snapshot considerations.
+## Dependencies and data
+Has separate originals/uploads, thumbnails, database and backup components; older snapshot review covered Immich datasets but delete was DRY-RUN ONLY.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+Before updating or pruning, verify recoverable originals and a consistent PostgreSQL backup. Avoid ZFS snapshot destruction or mass cleanups while `praesidium` is degraded; validate upload and browsing after changes.
 
-## Operations and verification
-Before updates or pruning, verify database-consistent backups and recoverable originals; sync alone does not guarantee a restore.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, targeted `docker inspect --format` of health and mounts, and `sudo zpool status`. For TrueNAS-managed `ix-*` apps, manage through TrueNAS Apps.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Confirm owner, actual data paths and recoverable backups before a restart, update or migration. Verify function, proxied access and monitoring afterwards. The dated state above is not proof of current status.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Service inventory](../../Services.md) · [Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+Never publish credentials or live environment files.
