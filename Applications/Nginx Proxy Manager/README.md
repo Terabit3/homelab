@@ -1,25 +1,23 @@
 # Nginx Proxy Manager
 
-## Hosts
-**Servius (TrueNAS SCALE).** TrueNAS-managed reverse proxy.
+**Host:** Servius / TrueNAS SCALE  
+**Deployment (dated evidence):** TrueNAS-managed `ix-nginx-proxy-manager-npm-1` using `jc21/nginx-proxy-manager:2.16.0`, healthy Oct 14.
 
-## Purpose
-Reverse proxy and TLS certificate manager for application domain routing.
+## Role
+HTTP reverse proxy, TLS termination and access lists for user-facing services.
 
-## Servius / homelab context
-TrueNAS app used for homelab web access alongside Authentik; detailed historical Pi-hole procedure is in Pi-hole-Proxy-Redirect.md.
+## Dependencies and data
+Depends on DNS records, backend reachability, valid certificates, and correct source-IP behavior; Authentik may be layered on top.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+Compare direct backend URL with proxied domain, inspect host rules/cert expiry, and test access-list behavior from outside LAN/Tailscale. Keep the historical [Pi-hole proxy redirect](Pi-hole-Proxy-Redirect.md) only as an issue-specific procedure.
 
-## Operations and verification
-Check direct app availability separately from proxy, certificate renewal and access lists. Do not expose an admin UI solely to troubleshoot routing.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, targeted `docker inspect --format` of health and mounts, and `sudo zpool status`. For TrueNAS-managed `ix-*` apps, manage through TrueNAS Apps.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Confirm owner, actual data paths and recoverable backups before a restart, update or migration. Verify function, proxied access and monitoring afterwards. The dated state above is not proof of current status.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Service inventory](../../Services.md) · [Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+Never publish credentials or live environment files.
