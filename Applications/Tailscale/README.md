@@ -1,19 +1,20 @@
 # Tailscale
 
-## What it does
-To be documented.
+## Hosts
+**Servius (TrueNAS SCALE) and HomePi (DietPi).** HomePi residential exit/subnet router; Servius existing Tailscale app. Separate AirVPN exit identity planned only.
 
-## Current setup
-To be documented.
+## Purpose
+Encrypted private mesh network, subnet routing and optional exit nodes.
 
-## Configuration and important directories
-To be documented.
+## Homelab notes
+Do not change the TrueNAS host default route for experimental VPN gateways. Verify client-selected exit nodes before relying on them.
 
-## Useful commands
-To be documented.
+**Evidence status:** Dated observations through 2026-10-16; current container state must be checked on each host.
 
-## Troubleshooting
-Add fixes here as problems are solved.
+## Related
+- [Application index](../README.md)
+- [Current Servius handoff](../../Assistant-Notes/Servius.md)
+- [Service inventory](../../Services.md)
+- [Operations](../../Operations/README.md)
 
-## Lessons learned
-Record anything worth remembering.
+Do not publish login credentials or environment files.
