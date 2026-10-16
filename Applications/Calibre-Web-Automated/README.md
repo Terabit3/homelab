@@ -1,5 +1,8 @@
 # Calibre-Web-Automated
 
+## Hosts
+**Servius (TrueNAS SCALE).** TrueNAS-managed app.
+
 ## Purpose
 Web interface and automated book library ingestion and metadata management.
 
