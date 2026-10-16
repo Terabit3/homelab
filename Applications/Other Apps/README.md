@@ -1,20 +1,21 @@
 # Other Apps
 
-## Hosts
-**Multiple / not assigned.** This is a catalog of apps, not a deployed container. Check each application's host in Services.md.
+**Host(s):** Catalog only — multiple hosts  
+**Observed deployment:** This entry is a documentation index and is not a container or Compose project.
 
-## Purpose
-Index of miscellaneous services without a dedicated in-depth guide.
+## What it does
+Captures miscellaneous or experimental services not requiring a separate full guide.
 
-## Homelab notes
-Track app ownership and deployment evidence in Services.md; proposals in ROADMAP.md are not installed applications.
+## Dependencies and data
+Use main [application index](../README.md) and [Services](../../Services.md) for each real application's host/ownership; proposed entries in ROADMAP are not installed.
 
-**Evidence status:** Dated observations through 2026-10-16; current container state must be checked on each host.
+## Practical operations
+When adding a real deployment, record its host and owner first; if it has substantial configuration, create a dedicated README. Separate paused/standby service state from experiments.
 
-## Related
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations](../../Operations/README.md)
+## Safe maintenance
+Verify live container identity, mounts, network, pool health and recoverable backup before any change. Use the owning manager (TrueNAS Apps or Dockhand) and avoid duplicate deployments. Preserve data and confirm intended user-facing behavior after updates.
 
-Do not publish login credentials or environment files.
+## More information
+[Application index](../README.md) · [Host/service inventory](../../Services.md) · [Current Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
+
+_Evidence is dated Oct 2026, not a live status check. Never put secrets or complete .env files in GitHub._
