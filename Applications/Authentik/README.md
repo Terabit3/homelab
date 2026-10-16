@@ -1,25 +1,23 @@
 # Authentik
 
-## Hosts
-**Servius (TrueNAS SCALE).** HomePi deployment not documented.
+**Host:** Servius / TrueNAS SCALE  
+**Deployment (dated evidence):** Docker Compose project `authentik`; `authentik-server-1`, `authentik-worker-1`, `authentik-postgresql-1` were running/healthy in the Oct 14 snapshot.
 
-## Purpose
-Identity provider and single sign-on gateway for web applications. Review proxy authentication flows and application access policies.
+## Role
+Identity provider for SSO, authentication flows and access policies.
 
-## Servius / homelab context
-TrueNAS/Docker ecosystem; exact instance configuration and protected app list require live verification.
+## Dependencies and data
+Nginx Proxy Manager and applications protected by Authentik; PostgreSQL is essential to policy and login continuity.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+Inspect `docker ps -a --filter label=com.docker.compose.project=authentik`; verify login and the actual proxy auth integration. Before updates preserve PostgreSQL and authentication configuration; do not loosen access rules to solve proxy errors.
 
-## Operations and verification
-Confirm reverse proxy integration, admin recovery method, database backup, and exposure before policy changes.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, and targeted `docker inspect --format` of health and mounts. For TrueNAS-managed `ix-*` apps, use TrueNAS Apps for management rather than an independent Dockhand recreation.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Check `zpool status`, confirmed backups and deployment ownership before updates. Retain application configuration and dependent databases. Verify app functionality, proxy access, and monitoring after any changes. Status above describes Oct 2026 evidence—not a live guarantee.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Services inventory](../../Services.md) · [Current Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+No credentials or populated environment files in Git.
