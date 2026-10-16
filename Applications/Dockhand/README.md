@@ -1,25 +1,23 @@
 # Dockhand
 
-## Hosts
-**Servius (TrueNAS SCALE) and HomePi (DietPi).** Servius: TrueNAS-managed ix-dockhand-dockhand-1. HomePi: Docker-based Dockhand managing local stacks.
+**Host:** Servius / TrueNAS SCALE; HomePi / DietPi  
+**Deployment (dated evidence):** Servius: TrueNAS-managed `ix-dockhand-dockhand-1` running as 568:568; HomePi: Docker-based Dockhand, previously adopted Uptime Kuma Compose in `/opt/uptime-kuma/compose.yaml`.
 
-## Purpose
-Docker Compose stack manager for editing, deploying, and observing grouped services.
+## Role
+Compose stack management, file editing, deployment state and observation.
 
-## Servius / homelab context
-TrueNAS-managed container ix-dockhand-dockhand-1 runs as UID/GID 568:568. Bind mounts map /mnt/speedpool/appdata/stacks to both /appdata/stacks and the matching absolute path.
+## Dependencies and data
+Servius host binds `/mnt/speedpool/appdata/stacks` to `/appdata/stacks` and the same absolute path; Docker socket mounted. HomePi installation is independent.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+For Servius ARR changes, staging `staging/arr-compose-v2` has 8/8 syntactically valid projects, **not deployed**. Staged files readable by Dockhand. Never activate a duplicate Compose project or change appdata while a DB is live. On HomePi verify Uptime Kuma persistence before Portainer retirement.
 
-## Operations and verification
-Protect application config, Docker socket permissions and Stack ownership. Stage ARR files under stacks/staging/arr-compose-v2; eight configs validate but are NOT deployed.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, and targeted `docker inspect --format` of health and mounts. For TrueNAS-managed `ix-*` apps, use TrueNAS Apps for management rather than an independent Dockhand recreation.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Check `zpool status`, confirmed backups and deployment ownership before updates. Retain application configuration and dependent databases. Verify app functionality, proxy access, and monitoring after any changes. Status above describes Oct 2026 evidence—not a live guarantee.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Services inventory](../../Services.md) · [Current Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+No credentials or populated environment files in Git.
