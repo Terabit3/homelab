@@ -11,7 +11,6 @@
 | **h711nt** | Physical Windows workstation | Local work, private configuration vault, Syncthing backup replicas | [Path reference](Important-Paths.md) |
 | **AMP Debian VM** | VM on Servius, **not another physical server** | AMP game hosting and backup sync | [Backup reference](Backup-and-Restore.md#amp-games) |
 
-The former Ryzen Proxmox mini-PC is not part of the active host list. Verify current hardware before assuming it exists.
 
 ## 2. Preserve what remains before attempting a rebuild
 
@@ -74,7 +73,11 @@ For each host/service, document:
 
 A green container status alone is **not** a verified restoration. A Git repository and Sync copies of live SQLite/PostgreSQL directories alone are **not** reliable disaster recovery.
 
-## 6. Maintain this manual as the homelab changes
+## 6. Physical 3D printers
+
+Printer hardware, printing workflows and reconstruction steps are documented separately in [3D Printers](../3D-Printers/README.md). Record the actual machine model, slicer profiles, firmware, modifications and print-file backup locations before relying on a recovery procedure.
+
+## 7. Maintain this manual as the homelab changes
 
 - Update [Applications](../Applications/README.md) with **host designation and management owner** when a service is installed/moved.
 - Update [Important paths](Important-Paths.md) when actual live config, database, mount or backup location changes.
