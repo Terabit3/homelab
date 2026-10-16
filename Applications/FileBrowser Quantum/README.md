@@ -1,5 +1,8 @@
 # FileBrowser Quantum
 
+## Hosts
+**Servius (TrueNAS SCALE).** TrueNAS-managed file browsing app; displays mounted pools.
+
 ## Purpose
 Web file browser for browsing and administering mounted TrueNAS datasets.
 
