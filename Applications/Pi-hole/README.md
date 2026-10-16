@@ -1,20 +1,21 @@
 # Pi-hole
 
-## Hosts
-**Servius (TrueNAS SCALE) and HomePi (DietPi).** Both have been documented with Pi-hole deployments; verify which currently answers primary DNS.
+**Host(s):** Servius / TrueNAS SCALE; HomePi / DietPi  
+**Observed deployment:** Servius: TrueNAS-managed `ix-pihole-pihole-1` observed healthy Oct 14 (`pihole/pihole:2026.09.0`). HomePi: Pi-hole v6, with Unbound locally documented.
 
-## Purpose
-DNS filtering with blocklists, local records and client request visibility.
+## What it does
+DNS sinkhole/filtering, local domain records and resolver policy.
 
-## Homelab notes
-Coordinate DNS changes across HomePi and Servius; avoid simultaneous misconfigured upstream DNS. See DNS-Editing.md.
+## Dependencies and data
+DNS clients may depend on either node; Unbound on HomePi provides resolver capability and its actual forwarding/recursive mode needs confirmation.
 
-**Evidence status:** Dated observations through 2026-10-16; current container state must be checked on each host.
+## Practical operations
+Before DNS changes determine primary/secondary resolver use and test query resolution from clients. Don't remove a DNS service without a fallback. HomePi nightly backup includes Pi-hole config/gravity DB but intentionally excludes FTL query-history DB. See [DNS editing](DNS-Editing.md).
 
-## Related
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations](../../Operations/README.md)
+## Safe maintenance
+Verify live container identity, mounts, network, pool health and recoverable backup before any change. Use the owning manager (TrueNAS Apps or Dockhand) and avoid duplicate deployments. Preserve data and confirm intended user-facing behavior after updates.
 
-Do not publish login credentials or environment files.
+## More information
+[Application index](../README.md) · [Host/service inventory](../../Services.md) · [Current Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
+
+_Evidence is dated Oct 2026, not a live status check. Never put secrets or complete .env files in GitHub._
