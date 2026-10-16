@@ -14,7 +14,7 @@ Docker containers: Uptime Kuma (`louislam/uptime-kuma:1`, host port 3001), Porta
 
 **Safety:** No blind `Save & redeploy`; don't move/overwrite existing Docker data; avoid kernel boot changes while remote.
 
-See [host docs](../Infrastructure/homepi.md) and [verified first backup record](../Operations/HomePi-Backup-2026-10-15.md). Earlier backup archives were integrity-tested but not restore-tested.
+See [host docs](../Infrastructure/homepi.md) and [verified first backup record](../Operations/HomePi-Backup-and-Restore.md). Earlier backup archives were integrity-tested but not restore-tested.
 
 ## 2026-10-15 — filesystem inspection (verified via Termius screenshot)
 
