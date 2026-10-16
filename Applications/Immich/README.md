@@ -1,5 +1,8 @@
 # Immich
 
+## Hosts
+**Servius (TrueNAS SCALE).** TrueNAS-managed image/media library.
+
 ## Purpose
 Self-hosted photo and video organization with indexing, mobile backup and thumbnail generation.
 
