@@ -1,19 +1,20 @@
 # Uptime Kuma
 
-## What it does
-To be documented.
+## Hosts
+**Servius (TrueNAS SCALE) and HomePi (DietPi).** Servius primary monitoring for apps/backups. HomePi also has an Uptime Kuma container documented; verify its current operational role.
 
-## Current setup
-To be documented.
+## Purpose
+Availability monitoring, status history and alerting.
 
-## Configuration and important directories
-To be documented.
+## Homelab notes
+Retain monitor history; verify backups and actual alert delivery. Planned backup Push monitors aren't necessarily configured.
 
-## Useful commands
-To be documented.
+**Evidence status:** Dated observations through 2026-10-16; current container state must be checked on each host.
 
-## Troubleshooting
-Add fixes here as problems are solved.
+## Related
+- [Application index](../README.md)
+- [Current Servius handoff](../../Assistant-Notes/Servius.md)
+- [Service inventory](../../Services.md)
+- [Operations](../../Operations/README.md)
 
-## Lessons learned
-Record anything worth remembering.
+Do not publish login credentials or environment files.
