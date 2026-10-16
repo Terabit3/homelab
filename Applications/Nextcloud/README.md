@@ -1,25 +1,23 @@
 # Nextcloud
 
-## Hosts
-**Servius (TrueNAS SCALE).** User-managed Docker service.
+**Host:** Servius / TrueNAS SCALE  
+**Deployment (dated evidence):** User Compose project `nextcloud`; containers `nextcloud`, `nextcloud-cron`, `nextcloud-db`, `nextcloud-redis` observed Oct 14; database healthy.
 
-## Purpose
-File synchronization, collaboration and personal cloud services.
+## Role
+Self-hosted files, sync and collaboration.
 
-## Servius / homelab context
-User-managed Docker deployment appears in Servius stack inventory.
+## Dependencies and data
+Dependent on application database, Redis, cron/background jobs, persistent files and trusted-domain/reverse-proxy settings.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+Check web login, job execution and DB/cache health. Back up database and file data consistently; preserve data directory and credentials separately; do not deploy Nextcloud with empty persistent volumes.
 
-## Operations and verification
-Verify data directory, database backup, cron/background jobs, reverse proxy, trusted domains and login before upgrades.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, targeted `docker inspect --format` of health and mounts, and `sudo zpool status`. For TrueNAS-managed `ix-*` apps, manage through TrueNAS Apps.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Confirm owner, actual data paths and recoverable backups before a restart, update or migration. Verify function, proxied access and monitoring afterwards. The dated state above is not proof of current status.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Service inventory](../../Services.md) · [Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+Never publish credentials or live environment files.
