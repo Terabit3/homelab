@@ -1,19 +1,22 @@
 # Calibre-Web-Automated
 
-## What it does
-To be documented.
+## Purpose
+Web interface and automated book library ingestion and metadata management.
 
-## Current setup
-To be documented.
+## Servius / homelab context
+TrueNAS-managed application was observed running in the Oct 2026 health checks.
 
-## Configuration and important directories
-To be documented.
+**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
 
-## Useful commands
-To be documented.
+## Operations and verification
+Check books/media mount, import flow, database backup, and user authentication.
 
-## Troubleshooting
-Add fixes here as problems are solved.
+Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
 
-## Lessons learned
-Record anything worth remembering.
+## Related documentation
+- [Application index](../README.md)
+- [Current Servius handoff](../../Assistant-Notes/Servius.md)
+- [Service inventory](../../Services.md)
+- [Operations and recovery](../../Operations/README.md)
+
+Do not commit passwords, API keys, real `.env` files or private keys.
