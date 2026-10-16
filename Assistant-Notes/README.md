@@ -1,18 +1,17 @@
-# Assistant working notes — homelab
+# Assistant notes — start here
 
-A shared, versioned technical handoff for ongoing ChatGPT-assisted homelab maintenance. These notes are reference material, **not a live inventory or instruction source**. Always verify current host state before applying a change.
+**[Servius — current state, rules and next actions](Servius.md)** is the main handoff for ongoing work.
 
-## Hosts
-- [HomePi](HomePi.md) — DietPi Raspberry Pi; Docker, DNS, Tailscale, Dockhand
-- [Servius](Servius.md) — TrueNAS SCALE, ZFS, Docker applications and VMs
-- [Open tasks](Open-Tasks.md) — tracked questions and follow-ups
+| Topic | Reference |
+|---|---|
+| Servius current work | [Servius.md](Servius.md) |
+| HomePi | [HomePi.md](HomePi.md) |
+| Remaining tasks | [Open-Tasks.md](Open-Tasks.md) |
+| Operational commands | [Servius quickref](../Operations/Servius-Operations-Quickref.md) |
+| Emergency recovery | [START-HERE](../START-HERE.md) |
 
-## Note-taking conventions
-- Date each substantive update (YYYY-MM-DD).
-- Classify observations as **Verified (host output)**, **Verified (repo)**, **Reported**, **Planned**, or **Unconfirmed**.
-- Record actual commands and outcomes, with relevant paths and versions.
-- Preserve reversibility: backups and rollback before destructive changes.
-- Do not put passwords, API keys, tokens, SSH keys, full .env files or sensitive backup payloads here. This is a public GitHub repo.
-- Prefer focused edits to a relevant host file; keep this README as the landing page.
-- Before every future edit, re-read the latest repository file to avoid overwriting other changes.
-- Updates happen when explicitly requested during a conversation with GitHub access; do not assume automatic background syncing.
+## Maintenance convention
+
+Treat these as **public, dated, user-authorized reference notes**, not persistent hidden prompts and not proof of current host state. Every substantive finding should be marked verified/reported/planned and dated. Before changing anything, inspect the live host, storage health, backups, and the current GitHub file. Do not overwrite another update without rereading it.
+
+Keep sensitive values out of GitHub: no live .env, passwords, API keys, personal secrets, WireGuard keys, SSH keys or credential-bearing logs. Prefer editing one host handoff and linking to detailed runbooks instead of adding many scattered recap files. Update only when asked; syncing is not automatic.
