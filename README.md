@@ -6,6 +6,8 @@
 >
 > **Evidence baseline:** October 15, 2026. This repo contains dated captures and procedures, **not live monitoring**. Check live status before acting.
 
+**Continuing ChatGPT-assisted Servius work?** Start at **[Current handoff — Servius](Assistant-Notes/Servius.md)** for verified state, operational rules and pending ARR migration. The deployment is staged, **not complete**.
+
 ## Find what you need
 
 | I need to… | Go here |
