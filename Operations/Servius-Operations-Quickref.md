@@ -1,61 +1,58 @@
-# Servius operations quick reference
+# Servius — operations quick reference
 
-**Snapshot date:** October 14–15, 2026. Confirm live status before making changes.
+**Host:** Servius (TrueNAS SCALE). **Dated context:** Oct 16, 2026; verify all volatile values live. This is the short command page, **not** the history log or migration plan.
 
-## Paths and ownership
-- `/mnt/speedpool/appdata/`: persistent app data on **single, nonredundant NVMe**.
-- `/mnt/speedpool/appdata/stacks/`: user Compose projects, including `arr-stack`, `arr-stack-secondary`, `arr-stack-stats`.
-- `/mnt/speedpool/appdata/homepage/`: `compose.yaml`, secret `homepage.env`, and `config/`.
-- `/mnt/praesidium/backups/amp/<instance>/`: AMP game archives.
-- `/mnt/praesidium/backups/homepi/homepi-backup/`: HomePi daily archives.
-- AMP **Debian VM**, not TrueNAS host: `/usr/local/sbin/amp-backup-sync.sh`, `/usr/local/sbin/amp-backup-notify.sh`, `/etc/cron.d/amp-backup-sync`.
-- Full reference: [Important Paths](Important-Paths.md).
+## First response (read-only)
 
-## Applications
-- Dockhand `ix-dockhand-dockhand-1` is a TrueNAS-managed app. Gradually migrate only appropriate user Compose projects from Portainer/Dockge; avoid multiple owners and preserve `homepage.env` editing.
-- Servius Kuma `ix-uptime-kuma-uptime-kuma-1`, version 2.5.6 observed Oct 15, port 31050. Planned HomePi backup monitoring via existing **WebUI**, not another monitor on HomePi.
-- NPM `ix-nginx-proxy-manager-npm-1` and Authentik cover network/app access; verify routes and policies live. `kuma-container-sync` was unhealthy in Oct 14 capture.
-- AMP hosts game instances in Debian VM; its ZIP sync to Servius and h711nt was previously hash-verified but restore untested.
-
-## October 15 verified operational status (not live)
-- Docker cleanup reduced reported image storage from **308.2 GB to 64.03 GB**; 113 images remained and ~41.17 GB was still classified reclaimable. 340 manifest-selected unused images removed with zero failures; preserve container images, rollback candidates and **all Docker volumes**. Do not run blanket image/volume pruning.
-- `parrot` Compose project, image, network and config removed; stopped `WinApps` and `whisparr` deliberately preserved. Parrot Uptime Kuma monitor #63 subsequently removed and verified.
-- `ix-dockhand-dockhand-1`, `ix-calibre-web-automated-calibre-web-automated-1`, and `kuma-container-sync` were healthy after cleanup. Sync every 300s; 74/74 active monitors had notification coverage when checked.
-- Broken cron ID 1 disabled. Native periodic snapshot tasks remained enabled, but snapshot age/allow-empty should be checked individually.
-- `praesidium` **DEGRADED** with one unavailable RAIDZ2 member, attributed by operator to bad SATA power path; cable ordered, repair unverified. Do not assume hardware repaired.
-- Both MEGA cloud sync tasks disabled (one previous FAILED), and speedpool replication disabled. Check independent recovery options.
-- TrueNAS user home `/mnt/speedpool/homes/timhu`, blue Bash prompt persisted through SSH login. `timhu` Match User SSH password override still allows passwords; key-only remains pending.
-- Refer to [October 15 changelog](../CHANGELOG.md) for exact screenshots-derived evidence, rollback and outstanding work.
-
-## Read-only first response
 ```bash
-sudo zpool status
-sudo zfs list -o name,used,avail,mountpoint
-sudo docker ps -a --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
-sudo docker logs --tail 100 ix-uptime-kuma-uptime-kuma-1
-sudo docker inspect ix-dockhand-dockhand-1 --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'
+sudo zpool status -v
+sudo zpool list
+sudo docker ps -a --format 'table {{.Names}}\t{{.Status}}\t{{.Label "com.docker.compose.project"}}'
+sudo systemctl --failed --no-pager
 ```
 
-**Caution:** Manage TrueNAS `ix-*` Apps through supported TrueNAS mechanisms. A historical `praesidium` degraded/power-cable issue and failed cloud-sync backup need current checks. Never commit full `docker inspect` env or private config values.
+If storage has errors, diagnose pools and hardware **before** restarting services. For full escalation steps see [START-HERE](../START-HERE.md).
 
-## Change sequence
-Check pool/alerts → locate owner and volume → backup/snapshot → one change → verify service and monitoring → update changelog/runbook/roadmap.
+## Management boundaries
 
-## October 16 ARR, Dockhand, and VPN findings
-- Dockhand: added a matching host-path bind mount at /mnt/speedpool/appdata/stacks alongside /appdata/stacks, resolving Whisparr's environment-file save failure. Keep both mappings.
-- Homepage, Dashy, Fail2ban: targeted group changes to GID 568 (apps) enabled Dockhand Compose file read/write. Underlying ZFS has NFSv4 ACLs; POSIX setfacl was unsupported.
-- Compose validation passed for arr-stack, arr-stack-secondary, arr-stack-stats, boxarr, byparr, whisparr. Shared network arr-stack_shared carries most ARR services. qBittorrent shares Gluetun's namespace. Jellystat database remains on isolated internal network.
-- Gluetun-to-service Docker DNS/HTTP passed for Radarr, Sonarr, Prowlarr, Bazarr, Cleanuparr and FlareSolverr. Jellyseerr redirected to /login then HTTP 200.
-- AirVPN Gluetun/WireGuard and qBittorrent listening port 37410 verified; external AirVPN TCP port test was open and TCP+UDP configured afterward. Preserve existing torrent VPN gateway.
-- Cleanuparr: Download Cleaner and Unlinked Downloads recommended disabled due TorrentLeech seeding risks. Confirm saved state. Cross-dataset hardlinks are not possible in current separate ZFS child dataset layout; preserve torrents labeled cleanuparr-unlinked.
-- Cleanuparr logs: stale Readarr and intermittently stopped Whisparr health checks. Bazarr logs: SUBDL external connection errors, some DNS and HTTP errors; not an ARR bridge failure.
-- Unpackerr **fixed Oct 16**: configured one Sonarr at `http://sonarr:8989` and one Radarr at `http://radarr:7878`; `paths=["/media/downloads"]`, `delete_orig=false`. Verified process started with 1 server each; do not delete seeded archives.
-- HomePi already advertises a Tailscale residential exit and subnet routes with forwarding/NAT enabled. Existing Servius Tailscale advertises overlapping routes but IPv6 forwarding is disabled, causing a warning. A distinct AirVPN exit-node identity is planned, not deployed. Do not alter TrueNAS host default route.
-- Kasm, disposable browser/desktop, VPN monitoring and routed VPN-egress bridge are future ideas, not deployed.
+| Owner | How to manage | Notes |
+|---|---|---|
+| TrueNAS Apps | TrueNAS Apps interface | Containers typically have `ix-*` prefixes; do not clone into Dockhand |
+| User-managed Compose | Dockhand / corresponding original project | Stacks under `/mnt/speedpool/appdata/stacks/`; preserve single ownership |
+| AMP game servers | Debian VM / AMP interface | AMP VM scripts do not execute on TrueNAS |
+| HomePi services | HomePi SSH / its Docker manager | Separate host, separate config, separate outages |
 
-## Oct 16 migration preparation (not deployed)
-- Current status and operating rules: [Assistant Servius handoff](../Assistant-Notes/Servius.md).
-- Target: `arr-essential` (Gluetun/qBit), `arr-primary` (Sonarr/Radarr/Prowlarr/FlareSolverr), `arr-services` (Seerr/Jellystat/Postgres/Wizarr), `arr-utilities` (Bazarr/Boxarr/Cleanuparr/Houndarr/Unpackerr), plus standalone Lidarr, Whisparr, Byparr and Autobrr. No numbered prefixes. Qui experimental future.
-- Eight staged Compose projects at `/mnt/speedpool/appdata/stacks/staging/arr-compose-v2/`; all 8/8 parsed with local .env. Dockhand container UID 568 confirmed can read staged compose.yaml and .env. **Running containers, their project ownership and data paths remain on old deployments**; never start duplicates.
-- Dockhand permission false alarm: host `runuser -u '#568'` could not resolve the identity, but inside the Dockhand container both files were readable. `.env` mode 0640 root:568 in staging.
-- Gluetun qBit network namespace sharing and WireGuard variables checked present (not a VPN-egress test for new stack). `praesidium` still DEGRADED; defer risky cutover without verified backups.
+## Everyday inspections
+
+```bash
+# Only actual names from docker ps:
+sudo docker logs --tail 100 gluetun
+sudo docker logs --tail 100 qbittorrent
+sudo docker inspect gluetun --format '{{.State.Status}} {{if .State.Health}}{{.State.Health.Status}}{{end}}'
+sudo docker inspect ix-dockhand-dockhand-1 --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'
+sudo zfs list -o name,used,avail,mountpoint
+```
+
+These targeted queries avoid printing environment credentials. Never publish unfiltered `docker inspect`.
+
+## High-impact cautions
+
+- **Storage:** `praesidium` last reported DEGRADED with one missing RAIDZ2 member. `speedpool` is a single nonredundant NVMe. Confirm live pool state and independent backups before migration, updates or deletions.
+- **Torrent/VPN:** qBittorrent shares Gluetun's network namespace; preserve AirVPN port `37410`, seeded TorrentLeech torrents, shared ARR network and database mounts. Never restart both without planning.
+- **ARR migration:** Eight Compose projects validated in `/mnt/speedpool/appdata/stacks/staging/arr-compose-v2/`; **none deployed** by the Oct 16 audit. The current active project names remain `arr-stack`, `arr-stack-secondary`, `arr-stack-stats`. See [current Servius handoff](../Assistant-Notes/Servius.md).
+- **Dockhand:** Container `ix-dockhand-dockhand-1`, observed UID/GID 568:568. Staged Compose and `.env` were readable **inside the container**; previous host `runuser -u '#568'` check was invalid.
+- **Unpackerr:** Oct 16 observed configured Sonarr and Radarr, `delete_orig=false`; verify seeded archive preservation.
+- **Backups:** Local ZFS snapshots and Syncthing live appdata copies are not independently sufficient for database recovery. Previous MEGA sync and speedpool replication were disabled.
+
+## Find detail once — avoid duplicating it here
+
+| Need | Canonical file |
+|---|---|
+| Detailed path maps and owners | [Important paths](Important-Paths.md) |
+| Backup scripts, validity and restore tests | [Backup and restore](Backup-and-Restore.md) |
+| Actual migration plan and verified decisions | [Servius handoff](../Assistant-Notes/Servius.md) |
+| All applications and managers | [Services](../Services.md) |
+| October 14–15 detailed operational changes | [Historical recap](2026-10-14-15-Recap.md) and [changelog](../CHANGELOG.md) |
+| Full TrueNAS diagnostics | [Troubleshooting runbook](TrueNAS-Troubleshooting-Runbook.md) |
+
+Change process: identify owner → confirm data and backup → one authorized change → verify health, persistence, DNS and monitoring → record result.
