@@ -8,6 +8,10 @@
 
 **Continuing ChatGPT-assisted Servius work?** Start at **[Current handoff — Servius](Assistant-Notes/Servius.md)** for verified state, operational rules and pending ARR migration. The deployment is staged, **not complete**.
 
+## Browse by purpose
+
+The root README is the normal navigation entry point. For an individual app, use the [host-labelled application index](Applications/README.md). For ongoing changes, use the [Servius handoff](Assistant-Notes/Servius.md); for historic events use [CHANGELOG](CHANGELOG.md). Avoid treating dated reports or archived inventories as current state.
+
 ## Find what you need
 
 | I need to… | Go here |
