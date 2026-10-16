@@ -1,25 +1,23 @@
 # Calibre-Web-Automated
 
-## Hosts
-**Servius (TrueNAS SCALE).** TrueNAS-managed app.
+**Host:** Servius / TrueNAS SCALE  
+**Deployment (dated evidence):** TrueNAS-managed `ix-calibre-web-automated-calibre-web-automated-1`; `ghcr.io/crocodilestick/calibre-web-automated:v4.0.8` observed healthy Oct 14.
 
-## Purpose
-Web interface and automated book library ingestion and metadata management.
+## Role
+Web ebook library/catalog and automated book ingestion.
 
-## Servius / homelab context
-TrueNAS-managed application was observed running in the Oct 2026 health checks.
+## Dependencies and data
+Ebook storage and application database; exact mounts must be inspected live.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+Inspect TrueNAS Apps status, import folders, metadata changes and library visibility. Preserve its database and book originals before updates; manage via TrueNAS Apps.
 
-## Operations and verification
-Check books/media mount, import flow, database backup, and user authentication.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, and targeted `docker inspect --format` of health and mounts. For TrueNAS-managed `ix-*` apps, use TrueNAS Apps for management rather than an independent Dockhand recreation.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Check `zpool status`, confirmed backups and deployment ownership before updates. Retain application configuration and dependent databases. Verify app functionality, proxy access, and monitoring after any changes. Status above describes Oct 2026 evidence—not a live guarantee.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Services inventory](../../Services.md) · [Current Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+No credentials or populated environment files in Git.
