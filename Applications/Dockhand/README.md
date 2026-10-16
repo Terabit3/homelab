@@ -1,5 +1,8 @@
 # Dockhand
 
+## Hosts
+**Servius (TrueNAS SCALE) and HomePi (DietPi).** Servius: TrueNAS-managed ix-dockhand-dockhand-1. HomePi: Docker-based Dockhand managing local stacks.
+
 ## Purpose
 Docker Compose stack manager for editing, deploying, and observing grouped services.
 
