@@ -5,7 +5,7 @@ Use [main README](../README.md) for navigation, [Servius handoff](../Assistant-N
 ## Historical reference
 - [Repository import/review summary](Repository-Review.md) — former loose README insert, import and review notes
 - [Servius Oct 14–15 operations recap](../Operations/2026-10-14-15-Recap.md) — dated actions, storage and backup findings
-- [HomePi first backup hashes](../Operations/HomePi-Backup-2026-10-15.md) — baseline artifacts, not a proven restoration
+- [HomePi backup history and original hashes](../Operations/HomePi-Backup-and-Restore.md) — baseline artifacts, not a proven restoration
 - [Homepage Oct 15 inventory](../Applications/Homepage/2026-10-15-Inventory.md)
 - [Syncthing appdata audit](../Applications/Syncthing/2026-10-15-Appdata-Audit.md)
 - [Docker inventory](../Snapshots/Docker-Inventory.md)
