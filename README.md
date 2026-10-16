@@ -1,6 +1,6 @@
 # Homelab · Servius & homepi
 
-**A practical handbook for keeping the homelab running, recovering from failures, and rebuilding services.** Plain Markdown; works in GitHub and VS Code without extra software.
+**A practical handbook for everyday operations AND reconstructing the homelab after memory loss, hardware failure, or data loss.** Plain Markdown; works in GitHub and VS Code without extra software.
 
 > **Emergency?** Start at **[Something is broken → START HERE](START-HERE.md)**. Read the STOP warnings before touching storage or deleting data.
 >
@@ -16,6 +16,7 @@ The root README is the normal navigation entry point. For an individual app, use
 
 | I need to… | Go here |
 |---|---|
+| Rediscover or rebuild the homelab from scratch | **[Rebuild and rediscovery](Operations/Rebuild-and-Rediscovery.md)** |
 | Work out why something is broken | **[Emergency triage](START-HERE.md)** |
 | Replace a disk, repair a degraded pool, add storage | [TrueNAS disk replacement & expansion](Operations/TrueNAS-Disk-Replacement-and-Expansion.md) |
 | Recover a missing dataset, dead boot drive, networking or failed app | [TrueNAS troubleshooting](Operations/TrueNAS-Troubleshooting-Runbook.md) |
