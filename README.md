@@ -22,6 +22,7 @@ The root README is the normal navigation entry point. For an individual app, use
 | Recover a missing dataset, dead boot drive, networking or failed app | [TrueNAS troubleshooting](Operations/TrueNAS-Troubleshooting-Runbook.md) |
 | Check or restore a backup | [Backup & restore](Operations/Backup-and-Restore.md) |
 | Find an app, its config or owner | [Application directory](Applications/README.md) · [Service inventory](Services.md) |
+| Document, maintain or rebuild 3D printers | [3D printers](3D-Printers/README.md) |
 | Check hardware, ZFS layout or host details | [Infrastructure](Infrastructure/README.md) |
 | Review changes made and their verification | **[Changelog](CHANGELOG.md)** |
 | Locate important host/app/backup directories | **[Important paths](Operations/Important-Paths.md)** |
