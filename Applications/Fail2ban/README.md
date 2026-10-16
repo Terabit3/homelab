@@ -1,5 +1,8 @@
 # Fail2ban
 
+## Hosts
+**Servius (TrueNAS SCALE).** No HomePi Fail2ban deployment verified.
+
 ## Purpose
 Log-driven banning for repeated authentication or application access failures.
 
