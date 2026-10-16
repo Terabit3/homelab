@@ -1,25 +1,23 @@
 # Fail2ban
 
-## Hosts
-**Servius (TrueNAS SCALE).** No HomePi Fail2ban deployment verified.
+**Host:** Servius / TrueNAS SCALE  
+**Deployment (dated evidence):** User Compose project `fail2ban`, container `fail2ban` observed healthy Oct 14. Group permissions on Compose files corrected later.
 
-## Purpose
-Log-driven banning for repeated authentication or application access failures.
+## Role
+Bans repeat offenders based on monitored logs.
 
-## Servius / homelab context
-Used in Servius security stack; earlier Dockhand file-access issue addressed via group membership.
+## Dependencies and data
+Effectiveness depends on actual log sources, reverse-proxy real-client IP handling, firewall/nftables privileges, and jail configuration.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+Read active jail/status and recent bans, verify logs and ability to enforce blocks. Back up jails/action definitions; do not assume a healthy container means bans reach the host firewall.
 
-## Operations and verification
-Verify actual log sources, jail/action rules, host vs container firewall access, and proxy client-IP handling before trusting bans.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, and targeted `docker inspect --format` of health and mounts. For TrueNAS-managed `ix-*` apps, use TrueNAS Apps for management rather than an independent Dockhand recreation.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Check `zpool status`, confirmed backups and deployment ownership before updates. Retain application configuration and dependent databases. Verify app functionality, proxy access, and monitoring after any changes. Status above describes Oct 2026 evidence—not a live guarantee.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Services inventory](../../Services.md) · [Current Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+No credentials or populated environment files in Git.
