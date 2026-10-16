@@ -1,25 +1,23 @@
 # Dashy
 
-## Hosts
-**Servius (TrueNAS SCALE).** User-managed Compose stack.
+**Host:** Servius / TrueNAS SCALE  
+**Deployment (dated evidence):** User Compose project `dashy`, container `Dashy` observed healthy Oct 14.
 
-## Purpose
-Customizable homelab service dashboard and launcher.
+## Role
+Alternative web dashboard/shortcut portal.
 
-## Servius / homelab context
-User-managed Docker app; Dockhand permissions on Dashy Compose files were addressed in Oct 2026.
+## Dependencies and data
+Homepage overlaps its purpose; preserve dashboard configuration while deciding which to keep.
 
-**Status:** Documentation based on previously observed configuration through 2026-10-16; not live monitoring. Verify actual app state and configuration before action.
+## Operator checks
+Verify widgets, URLs and status endpoints before retiring in favor of Homepage. Check Compose and bind mounts through Dockhand; verify static config survives container replacement.
 
-## Operations and verification
-Locate live compose and config, confirm proxy URL, backup themes/widgets before replacement.
+**Read-only first:** `sudo docker ps -a`, `sudo docker logs --tail 100 <actual-container>`, and targeted `docker inspect --format` of health and mounts. For TrueNAS-managed `ix-*` apps, use TrueNAS Apps for management rather than an independent Dockhand recreation.
 
-Use `sudo docker ps -a` and `sudo docker inspect <container> --format '{{range .Mounts}}{{println .Source "->" .Destination}}{{end}}'` only after confirming the exact container name. TrueNAS-managed `ix-*` apps must be operated through the TrueNAS-supported workflow, not arbitrary Compose redeployment.
+## Recovery and change control
+Check `zpool status`, confirmed backups and deployment ownership before updates. Retain application configuration and dependent databases. Verify app functionality, proxy access, and monitoring after any changes. Status above describes Oct 2026 evidence—not a live guarantee.
 
-## Related documentation
-- [Application index](../README.md)
-- [Current Servius handoff](../../Assistant-Notes/Servius.md)
-- [Service inventory](../../Services.md)
-- [Operations and recovery](../../Operations/README.md)
+## References
+[Application directory](../README.md) · [Services inventory](../../Services.md) · [Current Servius handoff](../../Assistant-Notes/Servius.md) · [Operations](../../Operations/README.md)
 
-Do not commit passwords, API keys, real `.env` files or private keys.
+No credentials or populated environment files in Git.
