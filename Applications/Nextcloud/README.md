@@ -1,5 +1,8 @@
 # Nextcloud
 
+## Hosts
+**Servius (TrueNAS SCALE).** User-managed Docker service.
+
 ## Purpose
 File synchronization, collaboration and personal cloud services.
 
