@@ -1,5 +1,5 @@
 # Homelab Roadmap / TODO
-Updated: 2026-10-16
+Updated: 2026-10-17
 
 **Current priority:** Harden Servius and HomePi, eliminate operational faults, establish reliable automated backups, safe updates, alerting, and recovery. This is a planning checklist, not a live status report. Never commit credentials, .env contents, SSH keys, or Uptime Kuma Push tokens.
 
@@ -19,7 +19,7 @@ Updated: 2026-10-16
 
 ## P0: Storage and recoverability
 - [ ] Verify current praesidium RAIDZ2 health, historic degraded/power cable concern, scrubs, SMART, and alerts.
-- [ ] Establish independent versioned backups for speedpool (single NVMe; no redundancy), including appdata and critical database/VM data.
+- [ ] Establish independent versioned backups for speedpool (single NVMe; no redundancy), including appdata and critical database/VM data. Oct 17 audit: snapshots active, replication task #6 disabled/unassociated, receiving dataset effectively empty. Prepare separate appdata/VM replication after RAIDZ2 repair.
 - [ ] Resolve previously failed TrueNAS cloud-sync/MEGA backup and confirm a recent offsite recovery point.
 - [ ] Audit backup coverage for TrueNAS config, ZFS, AMP VM/game worlds, Docker Compose/secrets stored privately, ARR data, Immich originals/database, and HomePi.
 - [ ] Test an actual restore of HomePi and selected Servius data to an isolated environment.
@@ -38,7 +38,8 @@ Updated: 2026-10-16
 ## P1: HomePi backup and Servius monitoring
 - [x] HomePi scheduled ~03:30 systemd backup to Servius, with SQLite checks and remote SHA-256 verified transfer.
 - [x] HomePi retention wired after verification: 14 daily slots, four weekly age buckets, protected initial archive and newest copy; deletion behavior still needs testing.
-- [ ] **On Servius existing Uptime Kuma WebUI only:** create HomePi - Daily Backup Push monitor; ~25-hour heartbeat window and notifications. Wire HomePi success heartbeat *after* checksum-verified backup and retention. Test missed/failed backups. Do not install Kuma on HomePi.
+- [x] Wire HomePi success-only Uptime Kuma Push heartbeat *after* checksum-verified backup and retention; Oct 16 logs show `KUMA_PUSH_OK`. No extra Kuma on HomePi.
+- [ ] Verify Servius Kuma monitor actually received heartbeat, notification route, ~25-hour timeout and missed/failed-backup alert; do not recreate already configured Push URL.
 - [ ] Safely test retention with disposable expired archive examples, exact directory guard, and refine weekly buckets/calendar logic.
 - [ ] Reassess 5-minute backup timeout with growth/network variability; verify first unattended overnight run and missed-run recovery.
 - [ ] Centralize all backup/storage/service alerts in existing Servius monitoring; add HomePi Uptime Kuma monitor to Homepage.
