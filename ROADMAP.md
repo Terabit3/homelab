@@ -45,7 +45,7 @@ Updated: 2026-10-17
 - [ ] Centralize all backup/storage/service alerts in existing Servius monitoring; add HomePi Uptime Kuma monitor to Homepage.
 
 ## P2: Work out existing kinks
-- [ ] Gradually standardize Docker stack management in Dockhand, preserving Compose locations and homepage.env editing before removing Portainer/Dockge.
+- [ ] Gradually standardize Docker stack management in Dockhand, preserving Compose locations and homepage.env editing before removing Portainer/Dockge. [Migration manifest](Operations/ARR-Dockhand-Migration-Manifest.md) drafted Oct 17; still requires live mount reconciliation and verified backups.
 - [ ] Confirm and fix remaining issues (if still present): Homepage 403, Seerr/Jellyseerr authentication, Bazarr configuration, unhealthy containers, broken proxy routes.
 - [ ] Audit ARR stack paths, import/hardlink reliability, downloader jobs, permissions, recovery and selective upgrades.
 - [ ] Ensure AMP VM and hosted-game startup, networking, VM/world backups and appropriate resource limits; revisit Project Zomboid stutter only if reproducible.
