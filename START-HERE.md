@@ -52,6 +52,6 @@ For a less experienced helper, share this document and the read-only output. **I
 
 - `praesidium`: **historically** 4 × 12 TB RAIDZ2. A **power cable** caused a reported degraded state; a missing disk may not be dead. **Confirm live health first.**
 - `speedpool`: **historically** a **single NVMe with no redundancy**. Restore depends on independent backups.
-- Boot drive: Samsung 870 EVO; **Kioxia planned mirror is unplugged/not configured** due to the cable issue. Do not assume boot mirror exists.
+- Boot drive: Samsung 850 EVO (live verified Oct 16); **Kioxia planned mirror is unplugged/not configured** due to the cable issue. Do not assume boot mirror exists.
 - AMP game services run inside a **Debian VM**, not a TrueNAS Docker container.
 - The 2026-10-14 Docker list is a [snapshot](Snapshots/Docker-Inventory.md), not today's status.
