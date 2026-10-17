@@ -125,3 +125,10 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 - [x] Applied **147 tag assignment changes** to **80** existing Kuma monitors/groups, including the newly present 3D printer monitors/groups IDs 90–91 and HomePi Docker group ID92. Zero errors. Removed obsolete `Dockge` tag ID2 after verifying no remaining assignments. No monitor or service deletion/restart.
 - [ ] Consider functional tag refinement for Jellystat/Wizarr (currently ARR as assigned), Syncthing backup usage, and temporary one-off Docker monitor cleanup. Do not assume three recently discovered monitors were created by this tagging operation.
 - [ ] Evaluate Arcane Docker manager as a **proposal only**, with review of Docker socket security, migration and competing manager ownership; do not deploy or retire Dockhand unless approved.
+
+## Discord-first homelab alerts — operator preference (October 17, 2026)
+- [ ] Treat Discord as the primary actionable status inbox for Servius, HomePi, AMP and future hosts. Categorize critical storage/backup/DNS/security failures, service-down events, and lower-priority maintenance. Include recovery notifications and host/service context; avoid noisy duplicate messages.
+- [ ] Audit all 75+ Uptime Kuma monitor notification assignments and the existing `Servius Discord Alert` notifier ID1 **without exposing webhook secrets**. Newly created HomePi checks may not inherit notifications by default.
+- [ ] Verify HomePi Push monitor ID83 last success and effective heartbeat timeout; AMP Push ID77 alert policy; test missed-beat and recovery safely.
+- [ ] Configure or reuse Discord `#alerts` for actionable failures and existing `#backups` for backup results; optional `#homelab-status` for digest/maintenance, only with operator authorization and existing channel/webhook mapping.
+- [ ] Add Servius ZFS DEGRADED/FAULTED, SMART/capacity, snapshot/replication task status, and HomePi critical systemd/DNS checks with alerting. Use low-noise intervals, repeated failures, and verified notification delivery.
