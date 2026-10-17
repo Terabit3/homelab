@@ -117,3 +117,5 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 - [ ] Verify status/heartbeats for all eight HomePi checks, check inherited or explicit Discord notifications, and test one non-destructive alert path before declaring coverage complete.
 - [ ] Review whether HomePi local Kuma is deliberately retained as auxiliary; no service changed or removed.
 - [ ] Do not use the existing `uptime-kuma-api` 1.2.1 inside Kuma Sync to add monitors to Kuma 2.5.6 (`monitor.conditions` NOT NULL error). Tested isolated api2 client via temporary `python:3.11-slim` container; leave production Kuma Sync patch unchanged. Native TrueNAS Python venv attempt failed due missing ensurepip; do not apt-install packages into appliance OS.
+
+- [x] HomePi tag ID 3 applied to all eight Servius Kuma monitors (existing ID20 plus IDs83–89), Oct 17. IDs 20,84–89 all reported UP in 2h beat window. ID83 backup Push showed no heartbeat in 2h window—expected possible for daily schedule; check 48h receipt and missed-heartbeat alert before completion.
