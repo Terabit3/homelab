@@ -61,6 +61,14 @@ The HomePi systemd backup job runs around 03:30 local time and writes to `/mnt/p
 - **ZFS:** Source snapshots verified on Oct 16: appdata daily/6 weeks and VM data daily/1 week. Encrypted source `speedpool` has no current independent verified pool-level replica: task #6 disabled with no snapshot associations, `praesidium/backups/truenas/speedpool` contains only an old May snapshot, and MEGA tasks are disabled.
 - **Plan only (no changes made):** After degraded `praesidium` is repaired, review and configure separate appdata and VM replication destinations, encryption/retention, application-consistent database backups and a test restore. Do not run large transfers while degraded.
 
+## Media retention policy and actual capacity — October 16–17
+
+The operator wants replaceable media (movies, TV, common music) kept to **one primary copy and at most one additional copy** where justified. A RAIDZ2 vdev is fault tolerance, **not** an independent backup. Preserve stronger independent/offsite protection for photos, DJI originals, personal documents, app databases/config, Immich and game saves. Do not bulk-replicate the replaceable media library merely because of existing replication plans.
+
+Read-only TrueNAS measurements: `praesidium` 43.6T raw, 22.5T ALLOC (51%), with logical ZFS `USED` ~10.9T. `praesidium/appdata/arr_common` ~10.4T: TV 4.56T, downloads 2.21T, movies 1.31T, Whisparr 1.30T, anime 772G. Media snapshot charges for TV (20.8G), movies (23.7G), anime (1.18G) and music (6.12G) are small. Backup datasets **only 8.82G** total (AMP 5.65G, HomePi 3.17G); TrueNAS replication receiving dataset remains virtually empty. Raw RAIDZ2 allocation includes parity and is not directly comparable to logical dataset usage. No snapshot or backup retention was changed.
+
+`praesidium/appdata/immich` 457G and `speedpool/appdata/immich` 202G both exist; **do not infer redundant content** without live mount and integrity review. Avoid dangerous cleanup while `praesidium` is DEGRADED. Separate actual backups from same-pool snapshots and verify independent restores.
+
 ## Routine checklist
 
 - [ ] Verify TrueNAS alerts and most recent successful data protection jobs.
