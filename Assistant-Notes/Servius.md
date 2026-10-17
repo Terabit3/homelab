@@ -40,6 +40,9 @@ Independently managed: `lidarr` (preserve; no longer in main stack), `whisparr` 
 - HomePi Oct 16 systemd backup confirmed success (03:33–03:36), SHA256 MATCH, retention completed and `KUMA_PUSH_OK` **after** successful backup. Push monitoring is installed; Kuma receipt/alert-on-miss and restore/aged-retention tests still unverified. Do not repeat monitor setup.
 - ARR production containers and network unchanged; all eight staged `compose.yaml` plus `.env` still present. Main production ARR stacks, Boxarr/Byparr etc. still have original Compose labels; no cutover. Prior staging **8/8 config PASS** from previous session; current audit confirmed presence, *not* a fresh validation. Prefer review of staged-to-live differences and mounts only after checking existing handoff.
 
+## Migration documentation
+- [ARR Dockhand migration manifest](../Operations/ARR-Dockhand-Migration-Manifest.md) contains the live-to-staged service map, current constraints, unverified mounts, dependencies and guarded cutover order. Do not redo previously verified staging or deploy until gates are met.
+
 ## Next priorities
 1. Confirm backup/restorability on single-NVMe speedpool and repair/recover degraded praesidium; avoid moving running PostgreSQL or qBit config data.
 2. Compare staged versus active effective Compose configuration and volumes; verify actual .env values and bind ownership locally without printing secrets.
