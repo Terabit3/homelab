@@ -115,3 +115,13 @@ Compare the eight staged YAML bind mount expressions with these verified live mo
 ## Houndarr ownership audit (verified October 17)
 
 Live Houndarr image: `ghcr.io/av1155/houndarr:latest`, container running; no explicit container user configured. `/data` has four files owned by UID/GID 568: `houndarr.db` (671744 B, 0644), `houndarr.db-wal` (3609152 B, 0644), `houndarr.db-shm` (32768 B, 0644), and `houndarr.masterkey` (44 B, 0600). Staged Houndarr mounts only `./houndarr:/config`; `/data` persistence is missing. Proposed staged correction, **not yet applied**: add `./houndarr-data:/data`, retain existing `/config` mount, and transfer full `/data` at a controlled stopped-container cutover while preserving owner, mode and key. No file contents or secrets were viewed. Do not treat the running database as a consistent file-copy backup.
+
+## Live network audit — October 17, 2026
+
+Operator-confirmed Docker inspect of 17 running ARR containers. All have restart policy `unless-stopped`. Published bindings reported host IP as empty (all host interfaces unless constrained elsewhere); these are not recommendations to expose them publicly.
+
+- Gluetun: `arr-stack_default` and `arr-stack_shared`; publishes TCP 6881, UDP 6881, TCP 8080. qBittorrent: `network_mode: container:<gluetun container ID>`, no independently attached networks or ports. Staged Compose must use suitable service-scoped namespace ownership and preserve qBit VPN isolation.
+- Shared network only: Prowlarr 9696, Sonarr 8989, Radarr 7878, FlareSolverr 8191, Bazarr 6767, Cleanuparr 11011, Houndarr 8877, Unpackerr 5757, Jellyseerr 5055, Wizarr 5690, Lidarr 8686, Boxarr 8888, Byparr 8192 (Byparr's container port is 8191).
+- Jellystat: `arr-stack_shared` and `arr-stack-stats_stats-db`; host 5056 to container 3000. Jellystat DB: **only** `arr-stack-stats_stats-db`, no published ports. Must preserve isolated PostgreSQL connectivity without joining ARR shared network.
+- Port 8191 is occupied by FlareSolverr; Byparr maps container 8191 to **host 8192**. Preserve distinction.
+- This is the **live** baseline, not validation of the staged `networks` and `ports` definitions. No containers or networks modified.
