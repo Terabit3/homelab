@@ -3,6 +3,15 @@ Updated: 2026-10-17
 
 **Current priority:** Harden Servius and HomePi, eliminate operational faults, establish reliable automated backups, safe updates, alerting, and recovery. This is a planning checklist, not a live status report. Never commit credentials, .env contents, SSH keys, or Uptime Kuma Push tokens.
 
+## October 16–17 completed audits and fixes
+- [x] Kuma Container Sync: persistent patched `monitor.py` mounted read-only; one-off/TrueNAS init jobs excluded and 10-minute running threshold; production sync succeeded (43 eligible, 71 monitors). Audit found zero stale/temporary Docker monitor cleanup candidates. [Servius handoff](Assistant-Notes/Servius.md).
+- [x] Dockhand Authentik Compose EACCES resolved: top-level directory root:apps 0775 and `compose.yml` root:apps 0664; operator confirmed successful Save. No recursive permission change.
+- [x] Inventory production ARR mounts and ports, verify five staged `MEDIA_PATH` values, validate staged network relationships, and add Houndarr `/data` mount to staged `arr-utilities` (`docker compose config -q` PASS). No production migration. [Manifest](Operations/ARR-Dockhand-Migration-Manifest.md) and [rollback runbook](Operations/ARR-Data-Migration-Rollback.md).
+- [x] Read-only ZFS capacity audit: `praesidium` 51% RAW allocation (22.5T/43.6T), `arr_common` 10.4T logical dataset usage, existing backup datasets only 8.82G; media snapshots modest. No evidence that backup copies explain half the pool.
+- [ ] Investigate `praesidium/appdata/arr_common/downloads` 2.21T, preserving active seeding and original files; review only, no deletion while degraded.
+- [ ] Verify Immich's live data mounts and history: 457G under praesidium and 202G under speedpool; do not assume duplicates or delete.
+- [ ] Adopt selective backups: primary copy of replaceable media, optional second for rare material; prioritize independent copies of irreplaceable photos, documents, configs, database dumps, AMP saves. Snapshot retention unchanged pending measured benefit.
+
 ## October 15 operational follow-ups
 - [x] Retire Parrot Docker deployment and all its project configuration; preserve WinApps and Whisparr.
 - [x] Remove 340 unused historical Docker images after manifest preview, retain container images and one unused rollback candidate per repository; leave Docker volumes untouched.
@@ -45,9 +54,9 @@ Updated: 2026-10-17
 - [ ] Centralize all backup/storage/service alerts in existing Servius monitoring; add HomePi Uptime Kuma monitor to Homepage.
 
 ## P2: Work out existing kinks
-- [ ] Gradually standardize Docker stack management in Dockhand, preserving Compose locations and homepage.env editing before removing Portainer/Dockge. [Migration manifest](Operations/ARR-Dockhand-Migration-Manifest.md) drafted Oct 17; still requires live mount reconciliation and verified backups.
+- [ ] Gradually standardize Docker stack management in Dockhand, preserving Compose locations and homepage.env editing before removing Portainer/Dockge. [Migration manifest](Operations/ARR-Dockhand-Migration-Manifest.md) drafted Oct 17; mounts and networks reconciled Oct 17, Houndarr staged fix validated; still requires final path/ACL, database backups, and healthy storage.
 - [ ] Confirm and fix remaining issues (if still present): Homepage 403, Seerr/Jellyseerr authentication, Bazarr configuration, unhealthy containers, broken proxy routes.
-- [ ] Audit ARR stack paths, import/hardlink reliability, downloader jobs, permissions, recovery and selective upgrades.
+- [ ] Audit ARR import/hardlink reliability, downloader jobs, permissions, recovery and selective upgrades. Mount/port/network inventories already documented; do not repeat unless changed.
 - [ ] Ensure AMP VM and hosted-game startup, networking, VM/world backups and appropriate resource limits; revisit Project Zomboid stutter only if reproducible.
 - [ ] Review disconnected Kioxia secondary boot SSD / potential TrueNAS boot mirror after core storage is healthy.
 - [ ] Refresh dated service inventory, actual config paths, recovery runbooks and GitHub documentation after changes.
