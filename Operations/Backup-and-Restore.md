@@ -78,3 +78,21 @@ Read-only TrueNAS measurements: `praesidium` 43.6T raw, 22.5T ALLOC (51%), with 
 - [ ] Perform a non-destructive test restore (application, world, and personal file).
 - [ ] Export TrueNAS settings with secret seed after meaningful changes; keep them out of GitHub.
 - [ ] Record restored-from date, resulting state and any problems in a new [incident note](../Templates/Incident.md).
+
+## TrueNAS GUI task inventory — October 17, 2026 (screenshots; configuration only)
+
+Captured via TrueNAS Cron Jobs, Data Protection and Periodic S.M.A.R.T. Tests screens. These are **UI configuration/status observations, not proof of execution or successful backups**.
+
+| Category | Visible configuration | Interpretation / follow-up |
+|---|---|---|
+| Cron: Servius ZFS Health - Kuma | root; `/bin/bash /mnt/speedpool/appdata/scripts/zfs-kuma-health.sh`; `*/5 * * * *`; Enabled Yes | **Scheduled** every five minutes. Previous one-time manual live Push succeeded and reported `praesidium=DEGRADED`; unattended execution and Discord receipt not yet verified |
+| Cron: Authentik nightly backup | root; `/mnt/speedpool/appdata/authentik/backup.sh`; `30 3 * * *`; Enabled Yes | Script configured; last successful archive/restore not established by screenshot |
+| Cron: AMP Backup Retention | root; starts `/bin/bash /mnt/speedpool/appdata/scripts/amp-...`; `0 7 * * *`; Enabled Yes | Retention scheduled; aged deletion still untested |
+| Cron: historical ix-apps snapshot | root; command beginning `zfs snapshot -r speedpool/ix-apps@auto-...`; Disabled | Leave disabled; native ZFS snapshot tasks operate separately |
+| Scrub tasks | `speedpool` and `praesidium` enabled; Sunday 00:00 shown | Confirm maintenance appropriateness while `praesidium` remains DEGRADED; **do not manually start a scrub** during recovery |
+| Cloud sync | Two MEGA tasks disabled; one shows historical SUCCESS (5 months ago), the other historical FAILED (9 months ago) | Neither is a current offsite backup |
+| Periodic snapshots | Six enabled: `praesidium/users` 4wk daily 00:00; `speedpool/appdata` 6wk daily 00:00; `speedpool/vmdata` 1wk daily 00:00; `praesidium/appdata` 6wk daily 00:00; `praesidium/backups` 6wk daily 00:00; `speedpool/appdata/syncthing` 1wk daily 00:15 | GUI shows PENDING / Last Run N/A at capture; **do not infer failures** solely from PENDING. Earlier Oct16 actual snapshots were verified |
+| Replication | `speedpool` to `praesidium/backups/...` disabled; No snapshots sent yet, PENDING / Last Run N/A | No current independent speedpool replication |
+| Periodic SMART | All Disks SHORT scheduled Sunday 00:00; All Disks LONG scheduled monthly on day 1 at 00:00 (other monthly scheduling parameters truncated in screenshot) | Jobs listed; their enablement/result and actual test history should be verified independently |
+
+**Remaining:** Confirm TrueNAS cron job executes on schedule via middleware/query or logs; check Kuma #93 gets recurrent DOWN heartbeat with the actual degraded-state message, and confirm Discord routing. Only then mark fully operational. These screenshots do not document full exact commands for truncated table rows or evidence of completed test runs.
