@@ -137,6 +137,12 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 
 ### Servius ZFS Push alert — live result verified October 17
 - [x] Created Kuma Push monitor #93 `Servius | ZFS Pool Health`, 600s heartbeat timeout, Discord notifier #1. Root-only script `/mnt/speedpool/appdata/scripts/zfs-kuma-health.sh` (mode700) and token file `/mnt/speedpool/appdata/scripts/zfs-kuma-token` (mode600), both root:apps. Script checks all three named pools with `/sbin/zpool list -H -o name,health`, treats non-ONLINE or missing pools as DOWN. Syntax PASS; dry run detected `praesidium=DEGRADED`; live DOWN Push successfully acknowledged by Kuma. **No pool changes.**
-- [ ] Schedule script as TrueNAS-managed root Cron Job every five minutes, checking for existing job first; verify second independent scheduled invocation.
+- [x] Schedule script as TrueNAS-managed root Cron Job every five minutes (UI verified Oct 17).
+- [ ] Verify first unattended scheduled invocation independently.
 - [ ] Confirm Discord received the initial degraded-pool alert and subsequent UP recovery when hardware is repaired; protect token and avoid including its contents in Git.
 - [ ] Apply existing `Servius`, `Storage`, `Monitoring` tags to Kuma monitor #93; no duplicate tags.
+
+### Oct 17 scheduler and data-protection screenshots
+- [x] TrueNAS WebUI shows enabled root Cron Job `Servius ZFS Health - Kuma` at `*/5 * * * *` calling persistent ZFS Kuma script; earlier manual test reported degraded praesidium. **Still verify unattended run and Discord receipt**.
+- [x] Inventory screenshot: enabled Authentik nightly-backup cron 03:30, AMP archive retention cron 07:00, historical ix-apps snapshot cron disabled; enabled Sunday midnight scrubs on speedpool and praesidium; six enabled periodic snapshots (GUI currently PENDING), disabled MEGA cloud sync, disabled/unpopulated speedpool replication, scheduled all-disk SHORT Sunday and LONG monthly day1 SMART tests. See [Backup and Restore](Operations/Backup-and-Restore.md#truenas-gui-task-inventory--october-17-2026-screenshots-configuration-only).
+- [ ] After RAID member recovery, review the degraded praesidium weekly scrub schedule and SMART/test job contention. Do not alter jobs based on UI PENDING alone.
