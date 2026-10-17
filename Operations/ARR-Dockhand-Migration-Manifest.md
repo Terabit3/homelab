@@ -111,3 +111,7 @@ The observed Houndarr /data volume contains four files: a master-key file, a SQL
 ## Next minimal diagnostic (not yet run)
 
 Compare the eight staged YAML bind mount expressions with these verified live mounts **without interpolating or printing `.env` values**. Include Docker-managed volume migration decisions, DB-consistent backup requirements, and project cutover controls. Do not alter production containers or copy data yet.
+
+## Houndarr ownership audit (verified October 17)
+
+Live Houndarr image: `ghcr.io/av1155/houndarr:latest`, container running; no explicit container user configured. `/data` has four files owned by UID/GID 568: `houndarr.db` (671744 B, 0644), `houndarr.db-wal` (3609152 B, 0644), `houndarr.db-shm` (32768 B, 0644), and `houndarr.masterkey` (44 B, 0600). Staged Houndarr mounts only `./houndarr:/config`; `/data` persistence is missing. Proposed staged correction, **not yet applied**: add `./houndarr-data:/data`, retain existing `/config` mount, and transfer full `/data` at a controlled stopped-container cutover while preserving owner, mode and key. No file contents or secrets were viewed. Do not treat the running database as a consistent file-copy backup.
