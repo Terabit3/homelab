@@ -76,9 +76,17 @@ Read-only `docker inspect` output provided by operator; all mount entries report
 - Lidarr has an **additional** `/music` bind under the old `arr-stack-secondary` directory, in addition to `/media`.
 - All new staged relative mount paths, ownership, network memberships, static labels, container ports and startup dependencies **remain unverified**. Do not assume staged parity from these live mounts.
 
+## October 17 staged-media and special-volume checks
+
+- Staged `MEDIA_PATH` equals live `/mnt/praesidium/appdata/arr_common` in all five relevant projects: `arr-essential`, `arr-primary`, `arr-utilities`, `lidarr`, and `whisparr`. **MATCH x5**; the secret environment file was not published.
+- Live FlareSolverr Docker volume `/config`: `du -sh` reported `512` (effectively empty). Staged Compose has no matching mount. Do not claim disposable until behavior/config use is checked.
+- Live Houndarr Docker volume `/data`: `du -sh` reported `767K`; staged Compose has no `/data` mount. Treat as potentially persistent until file types and application behavior are verified.
+- Other staged mappings in the operator's short-form YAML inventory follow relative-per-stack directories, which **are not the current live paths**. A controlled migration/copy is required; no data was moved.
+- Neither volume was modified. No staged Compose or deployment changes occurred.
+
 ## Unverified / manifest completion checklist
 
-- [x] Capture exact live `Mounts` for 17 running ARR-related containers (Oct 17); see table below. All mounts reported RW=True. **Staged path comparison still outstanding.**
+- [x] Capture exact live `Mounts` for 17 running ARR-related containers (Oct 17); see table below. All mounts reported RW=True. **Staged short-form mappings inspected; effective target base and long-form checks remain outstanding.**
 - [ ] Staged config *effective* paths and project labels; no unresolved host path, privilege or shared-network changes.
 - [ ] Identify each PostgreSQL/SQLite DB and safe, application-consistent backup method; test restore for critical apps.
 - [ ] Capture current container network attachments, hostname/service DNS names, ports and any static references; preserve `arr-stack_shared` where necessary.
