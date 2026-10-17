@@ -1,6 +1,6 @@
 # Backup and restore · Servius
 
-> **Evidence date:** October 14, 2026; **restore confidence: partial**. A successful copy is not proof that the application can be restored. Check current task results before trusting a backup.
+ > **Evidence date:** October 17, 2026; **restore confidence: partial**. A successful copy is not proof that the application can be restored. Check current task results before trusting a backup.
 
 ## Before doing anything destructive
 
@@ -52,7 +52,14 @@ Use [boot recovery](TrueNAS-Troubleshooting-Runbook.md#8-truenas-wont-boot--boot
 
 The HomePi systemd backup job runs around 03:30 local time and writes to `/mnt/praesidium/backups/homepi/homepi-backup/` on Servius. Two approximately 121 MiB archives passed remote SHA-256 verification, and the first passed gzip integrity testing. Selected SQLite databases were checked; live Pi-hole FTL query history is **excluded** because its snapshot repeatedly copied far more data than its size. Retention is integrated, but actual aged-file deletion and restoration have **not** been tested.
 
-**See [HomePi backup and restoration runbook](HomePi-Backup-and-Restore.md) for exact paths, safe checks, exclusions and follow-ups.** Servius Uptime Kuma WebUI Push monitoring remains pending.
+**See [HomePi backup and restoration runbook](HomePi-Backup-and-Restore.md) for exact paths, safe checks, exclusions and follow-ups.** October 16 logs confirm a HomePi success-only heartbeat (`KUMA_PUSH_OK`) after transfer checksum and retention. Verify its receipt and missed-run notification in Servius Uptime Kuma before declaring alerting fully tested.
+
+## October 16–17 follow-up audit
+
+- **AMP:** Two latest ZIP files (`WuhanVSim20101`, `Storgarr01`) passed ZIP CRC. Their archive indexes include the actual game-world components (Zomboid multiplayer database/metagrid and Valheim world .db/.fwl/chunks). There are three daily ZIPs per instance on `praesidium`; recovery by restoring to a clean server remains untested. Keep previously documented **VM sync → Servius → h711nt Syncthing**, retention job, Discord and Kuma architecture; do not replace it with a duplicate backup flow.
+- **HomePi:** October 16 unattended service exited 0 after 03:33–03:36 run, SHA256 MATCH, retention completed and `KUMA_PUSH_OK`. No need to create the Push configuration again. Still verify monitoring receipt and missed-heartbeat notifications, retention aging and independent test restore.
+- **ZFS:** Source snapshots verified on Oct 16: appdata daily/6 weeks and VM data daily/1 week. Encrypted source `speedpool` has no current independent verified pool-level replica: task #6 disabled with no snapshot associations, `praesidium/backups/truenas/speedpool` contains only an old May snapshot, and MEGA tasks are disabled.
+- **Plan only (no changes made):** After degraded `praesidium` is repaired, review and configure separate appdata and VM replication destinations, encryption/retention, application-consistent database backups and a test restore. Do not run large transfers while degraded.
 
 ## Routine checklist
 
