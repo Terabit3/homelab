@@ -5,7 +5,7 @@ _Last updated: 2026-10-17. Public repository; operational notes, not live monito
 This file is the single concise handoff for future homelab work. For emergency storage procedures use [START-HERE](../START-HERE.md); for detailed commands use [Servius operations](../Operations/Servius-Operations-Quickref.md). Older dated snapshots must not override newer verified host output.
 
 ## Operating rules / collaboration
-- Prefer a single consolidated, compact CLI batch with clear BEGIN/END delimiters; user often sends phone terminal screenshots. Read-only diagnostics first, never deploy/restart/delete/rewrite live configs without explicit permission.
+- Prefer a single consolidated CLI batch with clear BEGIN/END delimiters; **do not truncate useful output**. Print two blank lines before `===== COPY RESULTS BELOW =====` for easy Termius selection. Read-only diagnostics first, never deploy/restart/delete/rewrite live configs without explicit permission.
 - Preserve existing application state and rollback data, particularly TorrentLeech seeds, qBittorrent, Gluetun, ARR databases, and PostgreSQL.
 - Keep TrueNAS ix-* app ownership with TrueNAS; Dockhand manages user Compose stacks. Do not deploy duplicate project definitions.
 - Write portable, consistent Compose YAML (stable project names, alphabetic services, standardized key order, relative per-stack appdata, .env for host-specific paths); never commit live secrets, full .env, tokens or WireGuard keys.
@@ -43,6 +43,14 @@ Independently managed: `lidarr` (preserve; no longer in main stack), `whisparr` 
 ## Migration documentation
 - [ARR Dockhand migration manifest](../Operations/ARR-Dockhand-Migration-Manifest.md) contains the live-to-staged service map, observed mounts and networks, and staged Houndarr data mount correction (config validation PASS, no deployment).
 - [ARR data migration and rollback runbook](../Operations/ARR-Data-Migration-Rollback.md) is a **draft pre-cutover plan** for application-consistent database backups, source-to-target transfer, and scoped rollback. Production has not been migrated; storage and independent backup gates remain blocked.
+
+## Storage capacity audit — October 16–17 (read-only)
+- `praesidium` 43.6T raw pool size, 22.5T allocated, 21.1T free (51% CAP, still DEGRADED). RAIDZ2 raw allocated capacity includes parity; not equal to logical file size. `speedpool` 1.81T pool, 545G allocated, 1.28T free (29%, ONLINE).
+- `praesidium` ZFS dataset USED ~10.9T, chiefly `appdata/arr_common` 10.4T: TV 4.56T, downloads 2.21T, movies 1.31T, Whisparr 1.30T, anime 772G. Media USED includes only ~52G snapshots across movies (23.7G), TV (20.8G), music (6.12G) and anime (1.18G). **Do not shorten retention merely to save space.**
+- `praesidium/backups` 8.82G total: AMP 5.65G, HomePi 3.17G, virtually empty TrueNAS replication. Backups are not the cause of 51% raw allocation.
+- Immich storage on **both** pools: `praesidium/appdata/immich` 457G (library 329G, videos 125G); `speedpool/appdata/immich` 202G (data 173G, thumbs 15.8G). These are not proven duplicates. Check actual live mounts before cleanup.
+- `speedpool/vmdata` 506G accounted USED, chiefly AMP VM 484G including snapshots 118G and previously measured reservation accounting. Never interpret this as 484G of copyable data.
+- User policy: no more than one or two copies of replaceable media, prioritize separate backup of personal files, photos, databases, Docker configs and AMP saves. Downloads/seeding need careful review, no blind deletions. No pool, snapshot, or data modifications performed.
 
 ## Next priorities
 1. Confirm backup/restorability on single-NVMe speedpool and repair/recover degraded praesidium; avoid moving running PostgreSQL or qBit config data.
