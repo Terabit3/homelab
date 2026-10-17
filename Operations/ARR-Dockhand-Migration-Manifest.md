@@ -108,13 +108,13 @@ The observed Houndarr /data volume contains four files: a master-key file, a SQL
 4. Split Lidarr and address on-demand Whisparr/Byparr separately; preserve old Compose files for rollback.
 5. Move `arr-essential` only after torrent state, VPN egress, ports and trackers can be tested and rollback verified.
 
-## Next minimal diagnostic (not yet run)
+## Next actions — preparation only
 
-Compare the eight staged YAML bind mount expressions with these verified live mounts **without interpolating or printing `.env` values**. Include Docker-managed volume migration decisions, DB-consistent backup requirements, and project cutover controls. Do not alter production containers or copy data yet.
+Do not redo the documented short-form volume, media path, network and port comparisons. Confirm final permanent Compose-relative directories, app-consistent database backups and ACL ownership. Preserve production and wait for RAID repair and independent recovery copies before cutover.
 
 ## Houndarr ownership audit (verified October 17)
 
-Live Houndarr image: `ghcr.io/av1155/houndarr:latest`, container running; no explicit container user configured. `/data` has four files owned by UID/GID 568: `houndarr.db` (671744 B, 0644), `houndarr.db-wal` (3609152 B, 0644), `houndarr.db-shm` (32768 B, 0644), and `houndarr.masterkey` (44 B, 0600). Staged Houndarr mounts only `./houndarr:/config`; `/data` persistence is missing. Proposed staged correction, **not yet applied**: add `./houndarr-data:/data`, retain existing `/config` mount, and transfer full `/data` at a controlled stopped-container cutover while preserving owner, mode and key. No file contents or secrets were viewed. Do not treat the running database as a consistent file-copy backup.
+Live Houndarr image: `ghcr.io/av1155/houndarr:latest`, container running; no explicit container user configured. `/data` has four files owned by UID/GID 568: `houndarr.db` (671744 B, 0644), `houndarr.db-wal` (3609152 B, 0644), `houndarr.db-shm` (32768 B, 0644), and `houndarr.masterkey` (44 B, 0600). Earlier staged Houndarr mounted only `./houndarr:/config`; `/data` persistence was missing. Later correction applied and validated (see section below). Earlier proposed correction: add `./houndarr-data:/data`, retain existing `/config` mount, and transfer full `/data` at a controlled stopped-container cutover while preserving owner, mode and key. No file contents or secrets were viewed. Do not treat the running database as a consistent file-copy backup.
 
 ## Live network audit — October 17, 2026
 
@@ -136,7 +136,7 @@ Read-only staged YAML inspection against the live network audit:
 - Whisparr: staged external shared network and `restart: no`, deliberate on-demand setup, not deployed.
 - Autobrr: staged external legacy `arr-stack_default`, no running container established.
 - All listed staged ports and service restart modes conform to observed live contracts, except intentional Whisparr difference. No deployment or actual connectivity validation performed.
-- **Outstanding blocker**: Houndarr staged `/data` persistence not present; retain SQLite and master key. Backup and degraded-storage gates still apply.
+- **Resolved in staging:** Houndarr `/data` mount was subsequently added and `arr-utilities` Compose validation passed; actual database/key transfer still pending. Backup and degraded-storage gates still apply.
 
 ## Verified staging edit — Houndarr, October 16 evening
 
