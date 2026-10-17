@@ -119,3 +119,9 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 - [ ] Do not use the existing `uptime-kuma-api` 1.2.1 inside Kuma Sync to add monitors to Kuma 2.5.6 (`monitor.conditions` NOT NULL error). Tested isolated api2 client via temporary `python:3.11-slim` container; leave production Kuma Sync patch unchanged. Native TrueNAS Python venv attempt failed due missing ensurepip; do not apt-install packages into appliance OS.
 
 - [x] HomePi tag ID 3 applied to all eight Servius Kuma monitors (existing ID20 plus IDs83–89), Oct 17. IDs 20,84–89 all reported UP in 2h beat window. ID83 backup Push showed no heartbeat in 2h window—expected possible for daily schedule; check 48h receipt and missed-heartbeat alert before completion.
+
+### Kuma functional tagging verified — October 17, 2026
+- [x] Reused existing host tags `Servius`, `Home-Pi`, `3D Printer`; created `Infrastructure` (ID6), `Media` (ID7), `ARR` (ID8), `Monitoring` (ID9), `Storage` (ID10), `Backup` (ID11), `Game Servers` (ID12). Existing `DEPRECIATED` left unchanged. No manager-specific replacement tag, to remain neutral across Dockhand/Arcane.
+- [x] Applied **147 tag assignment changes** to **80** existing Kuma monitors/groups, including the newly present 3D printer monitors/groups IDs 90–91 and HomePi Docker group ID92. Zero errors. Removed obsolete `Dockge` tag ID2 after verifying no remaining assignments. No monitor or service deletion/restart.
+- [ ] Consider functional tag refinement for Jellystat/Wizarr (currently ARR as assigned), Syncthing backup usage, and temporary one-off Docker monitor cleanup. Do not assume three recently discovered monitors were created by this tagging operation.
+- [ ] Evaluate Arcane Docker manager as a **proposal only**, with review of Docker socket security, migration and competing manager ownership; do not deploy or retire Dockhand unless approved.
