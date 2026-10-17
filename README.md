@@ -4,7 +4,7 @@
 
 > **Emergency?** Start at **[Something is broken → START HERE](START-HERE.md)**. Read the STOP warnings before touching storage or deleting data.
 >
-> **Evidence baseline:** October 15, 2026. This repo contains dated captures and procedures, **not live monitoring**. Check live status before acting.
+> **Evidence baseline:** October 16–17, 2026. This repo contains dated captures and procedures, **not live monitoring**. Check live status before acting.
 
 **Continuing ChatGPT-assisted Servius work?** Start at **[Current handoff — Servius](Assistant-Notes/Servius.md)** for verified state, operational rules and pending ARR migration. The deployment is staged, **not complete**.
 
@@ -21,6 +21,7 @@ The root README is the normal navigation entry point. For an individual app, use
 | Replace a disk, repair a degraded pool, add storage | [TrueNAS disk replacement & expansion](Operations/TrueNAS-Disk-Replacement-and-Expansion.md) |
 | Recover a missing dataset, dead boot drive, networking or failed app | [TrueNAS troubleshooting](Operations/TrueNAS-Troubleshooting-Runbook.md) |
 | Check or restore a backup | [Backup & restore](Operations/Backup-and-Restore.md) |
+| Plan the ARR-to-Dockhand migration | [ARR migration manifest](Operations/ARR-Dockhand-Migration-Manifest.md) · [Data and rollback runbook](Operations/ARR-Data-Migration-Rollback.md) |
 | Find an app, its config or owner | [Application directory](Applications/README.md) · [Service inventory](Services.md) |
 | Document, maintain or rebuild 3D printers | [3D printers](3D-Printers/README.md) |
 | Check hardware, ZFS layout or host details | [Infrastructure](Infrastructure/README.md) |
@@ -41,7 +42,7 @@ The root README is the normal navigation entry point. For an individual app, use
 
 ## Know before changing storage
 
-- `praesidium`: recorded **4 × 12 TB RAIDZ2**, **DEGRADED** with one unavailable member on October 15; SATA power cable replacement ordered, recovery not yet verified.
+- `praesidium`: recorded **4 × 12 TB RAIDZ2**, **DEGRADED** with one unavailable member as of October 16–17; SATA power cable replacement ordered, recovery not yet verified. Most recent read-only capacity: **51% raw allocation**, predominantly media; backups use only ~8.82 GiB.
 - `speedpool`: recorded **single NVMe**, **no redundancy**; check independent backups before risky work.
 - Boot: Samsung SSD; **Kioxia second boot SSD is disconnected and not yet mirrored**. See [hardware inventory](Infrastructure/Hardware/Hardware-Inventory.md).
 
