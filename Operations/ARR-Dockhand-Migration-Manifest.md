@@ -137,3 +137,7 @@ Read-only staged YAML inspection against the live network audit:
 - Autobrr: staged external legacy `arr-stack_default`, no running container established.
 - All listed staged ports and service restart modes conform to observed live contracts, except intentional Whisparr difference. No deployment or actual connectivity validation performed.
 - **Outstanding blocker**: Houndarr staged `/data` persistence not present; retain SQLite and master key. Backup and degraded-storage gates still apply.
+
+## Verified staging edit — Houndarr, October 16 evening
+
+Operator added `./houndarr-data:/data` alongside the existing `./houndarr:/config` bind in the **staged** `arr-utilities/compose.yaml`. The old staged file was copied to `compose.yaml.bak` at the same directory. `docker compose config --quiet` returned **PASS** for `arr-utilities`. No production service was stopped, restarted, deployed or modified by these commands; database and master-key files have **not** been copied. The future controlled Houndarr data transfer and application-consistent backup remain prerequisites to cutover. The source volume state, UID/GID 568:568 and 0600 masterkey mode are documented above. This verification covers only the modified `arr-utilities` staged config, not a fresh full eight-project validation.
