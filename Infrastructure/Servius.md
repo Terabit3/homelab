@@ -14,7 +14,7 @@ Servius is a TrueNAS SCALE system used for ZFS storage, Docker applications, fam
 | CPU cooler | Noctua NH-D15 |
 | Motherboard | Supermicro X11SCA-F |
 | RAM | 2 × 32 GB Kingston KSM26ED8/32ME DDR4-2666 ECC |
-| Boot drive | Samsung 870 EVO 500 GB SSD |
+| Boot drive | Samsung 850 EVO 500 GB SSD (live lsblk, Oct 16, 2026) |
 | Fast application storage | Samsung 990 PRO 2 TB NVMe (`speedpool`) |
 | Hard drives | 4 × HGST Ultrastar He12 12 TB HUH721212ALE601 |
 | Case | Fractal Design Define 7 |
