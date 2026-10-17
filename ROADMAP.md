@@ -132,3 +132,5 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 - [ ] Verify HomePi Push monitor ID83 last success and effective heartbeat timeout; AMP Push ID77 alert policy; test missed-beat and recovery safely.
 - [ ] Configure or reuse Discord `#alerts` for actionable failures and existing `#backups` for backup results; optional `#homelab-status` for digest/maintenance, only with operator authorization and existing channel/webhook mapping.
 - [ ] Add Servius ZFS DEGRADED/FAULTED, SMART/capacity, snapshot/replication task status, and HomePi critical systemd/DNS checks with alerting. Use low-noise intervals, repeated failures, and verified notification delivery.
+
+- [x] October 17: all six previously unassigned HomePi monitors IDs 84–89 received existing `Servius Discord Alert` notifier ID1 via Kuma API2 `edit_monitor`; each update re-read and VERIFIED. Prior audit showed all other 80 monitors assigned ID1. End-to-end failure/recovery delivery remains to be tested; assignments do not prove alert delivery.
