@@ -57,6 +57,10 @@ The effective `MEDIA_PATH` in five staged projects matches live `/mnt/praesidium
 - **Houndarr loses access to encrypted state:** Stop newly deployed Houndarr, verify the matching preserved master key and SQLite backup together; revert to old volume and image if necessary. Never regenerate key against existing encrypted data as a workaround.
 - **Wider storage fault / pool health regression:** Stop cutover. Prioritize storage recovery with [START-HERE](../START-HERE.md) and existing verified backups.
 
+## Capacity and media protection policy
+
+The operator does not want multiple historical independent copies of replaceable media. A primary copy and at most one justified secondary copy are the target; limit backup scope to irreplaceable personal/Immich content and application state, not all movies and TV. The read-only `praesidium` audit showed 51% *raw* pool allocation (22.5T of 43.6T), about 10.4T dataset usage in the shared ARR media hierarchy, and only 8.82G in backup datasets. The 2.21T downloads dataset must be preserved for seeding while its utility is reviewed. These values do not justify any deletion during the degraded state.
+
 ## Still unknown / must verify before approval
 
 - [ ] Final new permanent stack path and resolved relative volume sources.
