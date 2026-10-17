@@ -1,5 +1,5 @@
 # Homelab Roadmap / TODO
-Updated: 2026-10-15
+Updated: 2026-10-16
 
 **Current priority:** Harden Servius and HomePi, eliminate operational faults, establish reliable automated backups, safe updates, alerting, and recovery. This is a planning checklist, not a live status report. Never commit credentials, .env contents, SSH keys, or Uptime Kuma Push tokens.
 
@@ -52,7 +52,7 @@ Updated: 2026-10-15
 - [ ] Refresh dated service inventory, actual config paths, recovery runbooks and GitHub documentation after changes.
 
 ## P3: Future projects after stable baseline
-- [ ] Move approximately 4 TB personal storage from h711nt to Servius after datasets/ACLs/backups are ready; use two available approximately 5 GbE PCIe adapters during bulk migration.
+- [ ] Move approximately 4 TB personal storage from h711nt to Servius after datasets/ACLs/backups are ready; use the **planned dedicated 10Gb SFP+ DAC link** (Broadcom BCM57810S dual-port at Servius, Intel 82599ES single-port at h711nt). [Procurement, cooling, configuration and recovery plan](Infrastructure/Networking/Servius-h711nt-10GbE.md). **Not installed or tested.**
 - [ ] Phone-friendly Wake-on-LAN for Servius and h711nt; check Raspberry Pi hardware/power-state limitations for HomePi.
 - [ ] DJI workflow for ingest, originals, catalog/browsing, workstation editing and exported media on Servius.
 - [ ] Expand Immich photo management after confirming recoverable originals and database backups.
