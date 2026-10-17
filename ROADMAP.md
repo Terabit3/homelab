@@ -134,3 +134,9 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 - [ ] Add Servius ZFS DEGRADED/FAULTED, SMART/capacity, snapshot/replication task status, and HomePi critical systemd/DNS checks with alerting. Use low-noise intervals, repeated failures, and verified notification delivery.
 
 - [x] October 17: all six previously unassigned HomePi monitors IDs 84–89 received existing `Servius Discord Alert` notifier ID1 via Kuma API2 `edit_monitor`; each update re-read and VERIFIED. Prior audit showed all other 80 monitors assigned ID1. End-to-end failure/recovery delivery remains to be tested; assignments do not prove alert delivery.
+
+### Servius ZFS Push alert — live result verified October 17
+- [x] Created Kuma Push monitor #93 `Servius | ZFS Pool Health`, 600s heartbeat timeout, Discord notifier #1. Root-only script `/mnt/speedpool/appdata/scripts/zfs-kuma-health.sh` (mode700) and token file `/mnt/speedpool/appdata/scripts/zfs-kuma-token` (mode600), both root:apps. Script checks all three named pools with `/sbin/zpool list -H -o name,health`, treats non-ONLINE or missing pools as DOWN. Syntax PASS; dry run detected `praesidium=DEGRADED`; live DOWN Push successfully acknowledged by Kuma. **No pool changes.**
+- [ ] Schedule script as TrueNAS-managed root Cron Job every five minutes, checking for existing job first; verify second independent scheduled invocation.
+- [ ] Confirm Discord received the initial degraded-pool alert and subsequent UP recovery when hardware is repaired; protect token and avoid including its contents in Git.
+- [ ] Apply existing `Servius`, `Storage`, `Monitoring` tags to Kuma monitor #93; no duplicate tags.
