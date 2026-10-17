@@ -34,9 +34,51 @@
 - Active production project and container membership verified; no new staged projects deployed.
 - Existing AMP ZIP backups and HomePi success heartbeat verified. See [Backup and Restore](Backup-and-Restore.md). These do **not** prove an independent restorable ARR backup.
 
+## Verified live mounts (Oct 17, 2026)
+
+Read-only `docker inspect` output provided by operator; all mount entries reported `RW=True`. Paths are **live**, NOT proposed new destination paths. No environment values examined.
+
+| Staged owner | Container | Live source | Container destination | Type |
+|---|---|---|---|---|
+| `arr-essential` | `qbittorrent` | `/mnt/speedpool/appdata/stacks/arr-stack/qbit` | `/config` | `bind` |
+| `arr-essential` | `qbittorrent` | `/mnt/praesidium/appdata/arr_common` | `/media` | `bind` |
+| `arr-essential` | `gluetun` | `/mnt/speedpool/appdata/stacks/arr-stack/gluetun` | `/config and /gluetun` | `bind twice` |
+| `arr-primary` | `prowlarr` | `/mnt/speedpool/appdata/stacks/arr-stack/prowlarr` | `/config` | `bind` |
+| `arr-primary` | `prowlarr` | `/mnt/praesidium/appdata/arr_common` | `/media` | `bind` |
+| `arr-primary` | `sonarr` | `/mnt/speedpool/appdata/stacks/arr-stack/sonarr` | `/config` | `bind` |
+| `arr-primary` | `sonarr` | `/mnt/praesidium/appdata/arr_common` | `/media` | `bind` |
+| `arr-primary` | `radarr` | `/mnt/speedpool/appdata/stacks/arr-stack/radarr` | `/config` | `bind` |
+| `arr-primary` | `radarr` | `/mnt/praesidium/appdata/arr_common` | `/media` | `bind` |
+| `arr-primary` | `flaresolverr` | `/mnt/.ix-apps/docker/volumes/56b27f755fb9713c057f4a6dc55aca07c74ad35bef0cc2a71568e3d31a2d28ba/_data` | `/config` | `Docker volume` |
+| `arr-utilities` | `bazarr` | `/mnt/speedpool/appdata/stacks/arr-stack-secondary/bazarr/config` | `/config` | `bind` |
+| `arr-utilities` | `bazarr` | `/mnt/praesidium/appdata/arr_common` | `/media` | `bind` |
+| `arr-utilities` | `cleanuparr` | `/mnt/speedpool/appdata/stacks/cleanuparr/cleanuparr/config` | `/config` | `bind` |
+| `arr-utilities` | `cleanuparr` | `/mnt/praesidium/appdata/arr_common` | `/media` | `bind` |
+| `arr-utilities` | `houndarr` | `/mnt/.ix-apps/docker/volumes/29f25e6edd8064c143714a2017763d732fa17d3de1fe3b67fdb292297d3d8bb7/_data` | `/data` | `Docker volume` |
+| `arr-utilities` | `houndarr` | `/mnt/speedpool/appdata/stacks/arr-stack-secondary/houndarr` | `/config` | `bind` |
+| `arr-utilities` | `unpackerr` | `/mnt/speedpool/appdata/stacks/arr-stack-secondary/unpackerr/config` | `/config` | `bind` |
+| `arr-utilities` | `unpackerr` | `/mnt/praesidium/appdata/arr_common` | `/media` | `bind` |
+| `arr-utilities` | `boxarr` | `/mnt/speedpool/appdata/stacks/boxarr/config` | `/config` | `bind` |
+| `arr-services` | `jellyseerr` | `/mnt/speedpool/appdata/stacks/arr-stack-secondary/jellyseerr` | `/app/config` | `bind` |
+| `arr-services` | `jellystat` | `/mnt/speedpool/appdata/stacks/arr-stack-stats/jellystat/backup-data` | `/app/backend/backup-data` | `bind` |
+| `arr-services` | `jellystat-db` | `/mnt/speedpool/appdata/stacks/arr-stack-stats/jellystat-db/data` | `/var/lib/postgresql/data` | `bind` |
+| `arr-services` | `wizarr` | `/mnt/speedpool/appdata/stacks/arr-stack-stats/wizarr/data` | `/data` | `bind` |
+| `lidarr` | `lidarr` | `/mnt/speedpool/appdata/stacks/arr-stack-secondary/lidarr/config` | `/config` | `bind` |
+| `lidarr` | `lidarr` | `/mnt/speedpool/appdata/stacks/arr-stack-secondary/lidarr/music` | `/music` | `bind` |
+| `lidarr` | `lidarr` | `/mnt/praesidium/appdata/arr_common` | `/media` | `bind` |
+
+**Additional findings:**
+- `byparr` has **no declared mounts** in the observed `docker inspect`.
+- `flaresolverr` has a Docker-managed volume at `/config`; `houndarr` has a Docker-managed volume at `/data` **plus** a bind at `/config`. Do not assume these are disposable or migrate them as if already under staged per-stack directories.
+- `jellystat-db` stores PostgreSQL on a bind mount. Use an application-consistent backup and controlled cutover rather than raw copying an active database.
+- `gluetun` mounts the **same host directory** to both `/config` and `/gluetun`; maintain semantics and check permissions.
+- Shared `/media` mount is `/mnt/praesidium/appdata/arr_common` for qBittorrent, Prowlarr, Sonarr, Radarr, Bazarr, Cleanuparr, Unpackerr and Lidarr. Preserve this shared path mapping to avoid import failures.
+- Lidarr has an **additional** `/music` bind under the old `arr-stack-secondary` directory, in addition to `/media`.
+- All new staged relative mount paths, ownership, network memberships, static labels, container ports and startup dependencies **remain unverified**. Do not assume staged parity from these live mounts.
+
 ## Unverified / manifest completion checklist
 
-- [ ] Exact live `Mounts`: source, destination, type, and read-only status for each service; match against staged bind paths without exposing `.env` contents.
+- [x] Capture exact live `Mounts` for 17 running ARR-related containers (Oct 17); see table below. All mounts reported RW=True. **Staged path comparison still outstanding.**
 - [ ] Staged config *effective* paths and project labels; no unresolved host path, privilege or shared-network changes.
 - [ ] Identify each PostgreSQL/SQLite DB and safe, application-consistent backup method; test restore for critical apps.
 - [ ] Capture current container network attachments, hostname/service DNS names, ports and any static references; preserve `arr-stack_shared` where necessary.
@@ -56,4 +98,4 @@
 
 ## Next minimal diagnostic (not yet run)
 
-Use a single read-only `docker inspect` pass over the affected containers, displaying just name/project/bind mount paths and destinations (never environment contents or credentials). Compare with staged YAML *without outputting interpolated secrets*. Commit a redacted source → target matrix when evidence is available.
+Compare the eight staged YAML bind mount expressions with these verified live mounts **without interpolating or printing `.env` values**. Include Docker-managed volume migration decisions, DB-consistent backup requirements, and project cutover controls. Do not alter production containers or copy data yet.
