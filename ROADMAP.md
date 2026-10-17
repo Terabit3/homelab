@@ -101,3 +101,11 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 - [ ] Docs reflect deployed state and expose no secrets.
 
 **Change policy:** Check live health → take backup/snapshot → change one thing → verify → document.
+
+## Uptime Kuma expansion — inventory verified October 17
+- [x] Inventory existing Servius Kuma monitors read-only: **71 total**, comprising 50 Docker, 16 HTTP, 2 Ping, 2 Push and one group. Existing Home-Pi Ping ID 20, HomePi daily backup Push ID 83, AMP daily backup Push ID 77. Docker monitors grouped under `Servius - Docker Containers` ID 26. All entries active, not necessarily healthy.
+- [ ] Audit actual HomePi Docker containers, systemd, local HTTP ports, Pi-hole DNS and Unbound, then add **nonduplicate** checks from Servius Kuma. Do not deploy a second Kuma.
+- [ ] Audit monitor status and notification assignments; test Discord delivery and failure recovery, including backup Push missed-heartbeat behavior.
+- [ ] Add host-side scoped Push monitoring for Servius ZFS pool status, SMART/capacity and failed snapshot/replication tasks; validate scripts before scheduling or alerting.
+- [ ] Add relevant AMP VM and game health/availability checks while preserving existing backup Push monitors.
+- [ ] Review historical Docker Kuma entries for TrueNAS one-off/init/permissions/upgrade jobs; existing initial monitors are not deleted by the active Kuma Sync filter. Never bulk-delete without verified candidates.
