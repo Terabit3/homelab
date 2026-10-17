@@ -54,3 +54,7 @@ Independently managed: `lidarr` (preserve; no longer in main stack), `whisparr` 
 
 ## Memory / documentation policy
 This is a **repo handoff**, not the model's hidden prompt or automatic memory. It is intentionally readable by any repository visitor. Never insert confidential material, private personal information, raw user logs containing tokens, or undocumented assumptions. Update status after verification; date changes, link deep detail instead of duplicating massive reports.
+
+## Authentik Dockhand Compose save — verified October 16–17
+
+Dockhand (UID/GID 568:568) had an EACCES on `/appdata/authentik/compose.yml`, mounted from `/mnt/speedpool/appdata/authentik/compose.yml`. Host diagnosis: parent appdata already 568:568/0775; Authentik directory and compose file were root:root with modes 0755 and 0644. Operator changed **only** Authentik top-level directory to root:apps/0775 and compose file to root:apps/0664, keeping root ownership and not applying recursive chmod/chown. Operator confirmed **Dockhand Edit → Save now succeeds**. Authentik remained running with 3 containers in Dockhand screenshot; no deployment/restart implied by the save verification. Do not repeat this permission diagnostic unless it regresses.
