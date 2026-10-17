@@ -41,7 +41,8 @@ Independently managed: `lidarr` (preserve; no longer in main stack), `whisparr` 
 - ARR production containers and network unchanged; all eight staged `compose.yaml` plus `.env` still present. Main production ARR stacks, Boxarr/Byparr etc. still have original Compose labels; no cutover. Prior staging **8/8 config PASS** from previous session; current audit confirmed presence, *not* a fresh validation. Prefer review of staged-to-live differences and mounts only after checking existing handoff.
 
 ## Migration documentation
-- [ARR Dockhand migration manifest](../Operations/ARR-Dockhand-Migration-Manifest.md) contains the live-to-staged service map, current constraints, unverified mounts, dependencies and guarded cutover order. Do not redo previously verified staging or deploy until gates are met.
+- [ARR Dockhand migration manifest](../Operations/ARR-Dockhand-Migration-Manifest.md) contains the live-to-staged service map, observed mounts and networks, and staged Houndarr data mount correction (config validation PASS, no deployment).
+- [ARR data migration and rollback runbook](../Operations/ARR-Data-Migration-Rollback.md) is a **draft pre-cutover plan** for application-consistent database backups, source-to-target transfer, and scoped rollback. Production has not been migrated; storage and independent backup gates remain blocked.
 
 ## Next priorities
 1. Confirm backup/restorability on single-NVMe speedpool and repair/recover degraded praesidium; avoid moving running PostgreSQL or qBit config data.
