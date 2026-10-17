@@ -16,6 +16,14 @@
 | Case | Fractal Design Define 7 |
 | PSU | ASUS ROG Strix 650 W, 80+ Gold, fully modular |
 
+### Planned 10Gb networking upgrade (not installed)
+
+- **Servius:** Dell OEM Broadcom BCM57810S-family dual-port SFP+ adapter, photographed October 16, 2026; PCB marking `BCM957810A1006G`; Dell part label appears `0N20KJ` (confirm hardware ID).
+- **h711nt:** Intel 82599ES-based single-port SFP+ adapter, GigaPlus branding.
+- **Interconnect:** planned 3 m passive 10Gb SFP+ DAC, ideally vendor-coded Intel on one end and Dell/Broadcom on the other; **not yet bought or tested**.
+- **Cooling caution:** Broadcom card's onboard fan is loud. Do not disable without verifying adequate forced heatsink airflow and loaded temperature.
+- Details, procurement checks, setup, troubleshooting and recoverability: [Servius ↔ h711nt 10GbE plan](../Networking/Servius-h711nt-10GbE.md).
+
 ### Useful storage paths
 
 - `speedpool` app data: `/mnt/speedpool/appdata`
