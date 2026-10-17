@@ -10,7 +10,7 @@
 | CPU cooler | Noctua NH-D15 |
 | Motherboard | Supermicro X11SCA-F (ATX, LGA1151) |
 | RAM | Kingston KSM26ED8/32ME, 2 × 32 GB DDR4-2666 ECC CL19 (64 GB total) |
-| Boot drive | Samsung 870 EVO 500 GB SATA SSD |
+| Boot drive | Samsung 850 EVO 500 GB SATA SSD (verified by lsblk on Oct 16, 2026) |
 | Applications / fast storage | Samsung 990 PRO with heatsink, 2 TB NVMe; `speedpool` |
 | Bulk storage | 4 × HGST Ultrastar He12 12 TB, model HUH721212ALE601; `praesidium` |
 | Case | Fractal Design Define 7 |
@@ -51,7 +51,7 @@ These paths describe the documented layout, not a live validation of mounts or d
 
 ### Pending upgrade: Kioxia boot mirror
 
-- Current TrueNAS boot drive: Samsung 870 EVO 500 GB SSD.
+- Current TrueNAS boot drive: Samsung 850 EVO 500 GB SSD (live lsblk, Oct 16, 2026).
 - Second boot drive: Kioxia SSD (model/capacity to verify).
 - Status: Kioxia is physically disconnected due to the outstanding power-cable issue.
 - Plan: Connect Kioxia and configure it as a mirror of the existing TrueNAS boot pool.
