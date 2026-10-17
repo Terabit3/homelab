@@ -84,6 +84,10 @@ Read-only `docker inspect` output provided by operator; all mount entries report
 - Other staged mappings in the operator's short-form YAML inventory follow relative-per-stack directories, which **are not the current live paths**. A controlled migration/copy is required; no data was moved.
 - Neither volume was modified. No staged Compose or deployment changes occurred.
 
+## Houndarr persistence finding — October 17
+
+The observed Houndarr /data volume contains four files: a master-key file, a SQLite database, and two SQLite WAL-related sidecars. The staged Houndarr service currently maps /config only. Preserve the complete /data volume and its key during migration; do not copy a running SQLite database file in isolation. FlareSolverr's /config volume had zero regular files. No production changes were made.
+
 ## Unverified / manifest completion checklist
 
 - [x] Capture exact live `Mounts` for 17 running ARR-related containers (Oct 17); see table below. All mounts reported RW=True. **Staged short-form mappings inspected; effective target base and long-form checks remain outstanding.**
