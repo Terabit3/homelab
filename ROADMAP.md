@@ -109,3 +109,11 @@ These are deployment candidates, not assumed installed. Evaluate compatibility, 
 - [ ] Add host-side scoped Push monitoring for Servius ZFS pool status, SMART/capacity and failed snapshot/replication tasks; validate scripts before scheduling or alerting.
 - [ ] Add relevant AMP VM and game health/availability checks while preserving existing backup Push monitors.
 - [ ] Review historical Docker Kuma entries for TrueNAS one-off/init/permissions/upgrade jobs; existing initial monitors are not deleted by the active Kuma Sync filter. Never bulk-delete without verified candidates.
+
+### HomePi Kuma rollout verified — October 17, 2026
+- [x] Servius-to-HomePi reachability: Pi-hole HTTP 8080, Dockhand 3000, Kuma 3001 all HTTP 200; Pi-hole DNS 53 and Unbound 5335 both resolved `example.com`; TCP SSH 22 and other service ports reachable.
+- [x] HomePi Docker inventory: Dockhand and local Uptime Kuma v1 containers both running/healthy; Pi-hole, Unbound, Tailscale, Docker, Dropbear and backup timer active; no failed systemd units.
+- [x] Added six **active** checks in Servius Kuma 2.5.6 using isolated Python `uptime-kuma-api2` 2.9.0: ID84 Pi-hole HTTP, ID85 Dockhand HTTP, ID86 HomePi Kuma HTTP, ID87 Pi-hole DNS, ID88 Unbound DNS, ID89 SSH TCP. Existing ID20 HomePi Ping and ID83 daily-backup Push preserved. Monitor count **77** after additions. `active` does **not** establish live UP health.
+- [ ] Verify status/heartbeats for all eight HomePi checks, check inherited or explicit Discord notifications, and test one non-destructive alert path before declaring coverage complete.
+- [ ] Review whether HomePi local Kuma is deliberately retained as auxiliary; no service changed or removed.
+- [ ] Do not use the existing `uptime-kuma-api` 1.2.1 inside Kuma Sync to add monitors to Kuma 2.5.6 (`monitor.conditions` NOT NULL error). Tested isolated api2 client via temporary `python:3.11-slim` container; leave production Kuma Sync patch unchanged. Native TrueNAS Python venv attempt failed due missing ensurepip; do not apt-install packages into appliance OS.
