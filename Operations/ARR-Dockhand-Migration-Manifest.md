@@ -125,3 +125,15 @@ Operator-confirmed Docker inspect of 17 running ARR containers. All have restart
 - Jellystat: `arr-stack_shared` and `arr-stack-stats_stats-db`; host 5056 to container 3000. Jellystat DB: **only** `arr-stack-stats_stats-db`, no published ports. Must preserve isolated PostgreSQL connectivity without joining ARR shared network.
 - Port 8191 is occupied by FlareSolverr; Byparr maps container 8191 to **host 8192**. Preserve distinction.
 - This is the **live** baseline, not validation of the staged `networks` and `ports` definitions. No containers or networks modified.
+
+## Staged network comparison — October 17
+
+Read-only staged YAML inspection against the live network audit:
+
+- arr-essential: Gluetun attaches existing external `arr-stack_default` and `arr-stack_shared`; qBittorrent uses `network_mode: service:gluetun`; ports TCP 8080 and TCP/UDP 6881 match.
+- arr-primary, arr-utilities, Byparr, Lidarr: all use external `arr-stack_shared`, retaining observed host ports. FlareSolverr 8191 and Byparr host 8192 remain separate.
+- arr-services: Jellyseerr/Jellystat/Wizarr on external shared network; Jellystat and PostgreSQL on new internal `stats_db` network. This differs in network name from live `arr-stack-stats_stats-db` but preserves DB isolation; requires coordinated cutover and test.
+- Whisparr: staged external shared network and `restart: no`, deliberate on-demand setup, not deployed.
+- Autobrr: staged external legacy `arr-stack_default`, no running container established.
+- All listed staged ports and service restart modes conform to observed live contracts, except intentional Whisparr difference. No deployment or actual connectivity validation performed.
+- **Outstanding blocker**: Houndarr staged `/data` persistence not present; retain SQLite and master key. Backup and degraded-storage gates still apply.
